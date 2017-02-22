@@ -1,0 +1,55 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ @import "materialize/components/color";
+ $primary-color: color("blue", "lighten-2") !default;
+ $secondary-color: color("grey", "base") !default;
+ @import 'materialize';
+
+ .alert{
+   background-color: $secondary-color;
+   position: absolute;
+   top: 65px;
+   right:  80px;
+   border: 2px solid $primary-color;
+   z-index: 10000000000000;
+   height: 100px;
+   width: 300px;
+   animation-name: slider;
+   animation-duration: .5s;
+   animation-timing-function: ease-in-out;
+   padding: 25px;
+   .message {
+     margin-top: 25px;
+     font-weight: bold;
+   }
+   .x {
+     height: 20px;
+     display: block;
+     float: right;
+     &:hover {
+       cursor: pointer;
+     }
+   }
+ }
+ .alert-notice{
+   background-color: darkgreen;
+   color: white;
+ }
+ .alert-alert{
+
+   background-color: maroon;
+   color: white;
+ }
