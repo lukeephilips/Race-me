@@ -18,7 +18,16 @@ class RunsController < ApplicationController
     @user = current_user
     @run = @user.runs.new(run_params)
     if @run.save
-      flash[:notice] = "You saved your run"
+      @race = @user.races.new(goal_id: @run.goal_id, progress: @run.total_distance.to_i)
+      if @race.save
+        flash[:notice] = "You you're on your way to a new goal"
+      else
+        current_race = Race.where(goal_id: @run.goal_id, user_id: @user.id ).first
+        byebug
+        new_progress = current_race.progress.to_i + @run.total_distance.to_i
+        current_race.update({progress: new_progress})
+        flash[:notice] = "You you're that much closer to your goal"
+      end
       redirect_to user_runs_path(current_user)
     else
       flash[:alert] = @run.errors.full_messages.each {|m| m.to_s}.join
