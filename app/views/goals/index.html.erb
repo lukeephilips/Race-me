@@ -1,0 +1,9 @@
+<h1><%= @user.name %>'s Goals</h1>
+
+<% @goals.each do |goal| %>
+  <h3><%= goal.name %></h3>
+  <h5>Total Distance: <%= goal.total_distance %></h5>
+  <% goal.users.each do |user| %>
+  <p><%= link_to user.name, user_goals_path(user.id) %> | progress: <%= user.races.where(goal_id: goal.id).first.progress %></p>
+  <% end %>
+<% end %>

@@ -15,7 +15,9 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <% if current_user %>
             <li><%= link_to 'View Runs', user_runs_path(current_user) %></li>
+            <li><%= link_to 'View Goals', user_goals_path(current_user.id) %></li>
             <li><%= link_to 'Add a Run', new_user_run_path(current_user) %></li>
+            <li><%= link_to 'Add a Goal', new_user_goal_path(current_user) %></li>
             <li><%= link_to "Log out, #{current_user.name}", destroy_user_session_path, method: 'delete' %></li>
           <% else %>
             <li><%= link_to 'Log In', new_user_session_path %>  </li>

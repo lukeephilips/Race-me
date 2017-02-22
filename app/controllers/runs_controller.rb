@@ -1,10 +1,12 @@
 class RunsController < ApplicationController
   def index
     @runs = current_user.runs
+    @goals = current_user.goals
   end
+
   def show
     @run = Run.find(params[:id])
-    byebug
+
   end
 
   def new

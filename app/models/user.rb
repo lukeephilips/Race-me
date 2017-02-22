@@ -9,5 +9,9 @@ class User < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :name
 
-
+#   def get_competitions
+#     goals = self.goals
+#     competitors = []
+#     goals.each do |goal|
+#   end
 end

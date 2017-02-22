@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :home, only: [:index]
   resources :users do
-    resources :runs 
+    resources :runs
+    resources :goals
   end
 end
