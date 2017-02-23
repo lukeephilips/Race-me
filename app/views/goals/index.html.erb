@@ -1,7 +1,7 @@
-<h1 class="center"><%= @user.name %>'s Goals</h1>
+<h1 class="center">All users' goals</h1>
 <div class="row">
 
-<% @goals.each do |goal| %>
+<% @goals.order("lower(name)").each do |goal| %>
     <div class="col s12">
       <div class="card">
         <div class="card-image">
@@ -10,10 +10,11 @@
         </div>
         <div class="card-content">
           <p class="">Total Distance: <%= goal.total_distance %></p>
+
         </div>
         <div class="card-action">
           <% goal.users.each do |user| %>
-          <p><%= link_to user.name, user_goals_path(user.id) %> | progress: <%= user.races.where(goal_id: goal.id).first.progress %></p>
+          <p><%= link_to user.name, user_runs_path(user.id) %> | progress: <%= user.races.where(goal_id: goal.id).first.progress %></p>
           <% end %>
         </div>
       </div>

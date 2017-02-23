@@ -1,7 +1,8 @@
 class RunsController < ApplicationController
   def index
-    @runs = current_user.runs
-    @goals = current_user.goals
+    @user = User.find(params[:user_id])
+    @runs = @user.runs
+    @goals = @user.goals
   end
 
   def show
