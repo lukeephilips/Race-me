@@ -1,6 +1,23 @@
-<% @runs.each do |run| %>
-  <p><%= link_to "#{run.total_distance} miles - #{run.total_time} minutes", user_run_path(current_user, run) %></p>
-  <%= link_to "edit", edit_user_run_path(current_user, run), class: 'btn' %>
-  <%= link_to "delete", user_run_path(current_user, run), class: 'btn', :data => {confirm: 'Are you sure you want to delete this run?', method: 'delete'} %>
-<% end %>
 <br>
+<%= link_to 'Add a Run', new_user_run_path(current_user), class: 'btn right-align' %>
+<div class="row">
+    <% @runs.each do |run| %>
+      <div class="col s6">
+        <%= link_to user_run_path(current_user, run) do %>
+        <div class="card grey lighten-4">
+          <div class="card-content center black-text">
+            <span class="card-title"><%= current_user.name %>'s race to <%= run.goal.name %></span>
+            <p>Distance: <%= run.total_distance %> miles </p>
+            <p>Time: <%= run.total_time %> minutes</p>
+            <p>Avg Speed: <%= run.total_distance.to_f/(run.total_time.to_f / 60) %> mi/hr</p>
+            <p>Travel Method: <%= run.travel_method %> </p>
+          </div>
+          <div class="card-action center">
+            <%= link_to "edit", edit_user_run_path(current_user, run) %>
+            <%= link_to "delete", user_run_path(current_user, run), :data => {confirm: 'Are you sure you want to delete this run?', method: 'delete'} %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>

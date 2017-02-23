@@ -17,14 +17,9 @@
 //= require materialize-sprockets
 
 $(document).ready(function(){
-  $('.button-collapse').sideNav('');
-  $('.button-collapse').sideNav('show');
-
   $('select').material_select();
 
   $('.alert').click(function() {
     $('.alert').hide();
   });
-
-
 })

@@ -14,7 +14,7 @@
  *= require_self
  */
  @import "materialize/components/color";
- $primary-color: color("blue", "lighten-2") !default;
+ $primary-color: color("blue-grey", "base") !default;
  $secondary-color: color("grey", "base") !default;
  @import 'materialize';
 
@@ -52,4 +52,9 @@
 
    background-color: maroon;
    color: white;
+ }
+
+ .nav-margin {
+   margin-left: 5%;
+   margin-right: 5%;
  }

@@ -21,12 +21,12 @@ class RunsController < ApplicationController
     if @run.save
       @race = @user.races.new(goal_id: @run.goal_id, progress: @run.total_distance.to_i)
       if @race.save
-        flash[:notice] = "You you're on your way to a new goal"
+        flash[:notice] = "You're on your way to a new goal"
       else
         current_race = Race.where(goal_id: @run.goal_id, user_id: @user.id ).first
         new_progress = current_race.progress.to_i + @run.total_distance.to_i
         current_race.update({progress: new_progress})
-        flash[:notice] = "You you're that much closer to your goal"
+        flash[:notice] = "You're that much closer to your goal"
       end
       redirect_to user_runs_path(current_user)
     else
@@ -36,6 +36,7 @@ class RunsController < ApplicationController
   end
 
   def edit
+    @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
     @user = current_user
     @run = Run.find(params[:id])
   end

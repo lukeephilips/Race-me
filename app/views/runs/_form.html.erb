@@ -17,6 +17,6 @@
   <%= f.text_field :travel_method %>
 
   <%= f.label :goal_id %>
-  <%= f.select(:goal_id, @goals) %>
-  <%= f.submit %>
+  <%= f.select :goal_id, @goals, id: 'run-select'  %>
+  <%= f.submit class: 'btn' %>
 <% end %>

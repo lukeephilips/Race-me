@@ -1,9 +1,23 @@
-<h1><%= @user.name %>'s Goals</h1>
+<h1 class="center"><%= @user.name %>'s Goals</h1>
+<div class="row">
 
 <% @goals.each do |goal| %>
-  <h3><%= goal.name %></h3>
-  <h5>Total Distance: <%= goal.total_distance %></h5>
-  <% goal.users.each do |user| %>
-  <p><%= link_to user.name, user_goals_path(user.id) %> | progress: <%= user.races.where(goal_id: goal.id).first.progress %></p>
-  <% end %>
+    <div class="col s12">
+      <div class="card">
+        <div class="card-image">
+          <img src="http://lifecdn.dailyburn.com/life/wp-content/uploads/2013/08/Running-Form_1.jpg">
+          <span class="card-title"><%= goal.name %></span>
+        </div>
+        <div class="card-content">
+          <p class="">Total Distance: <%= goal.total_distance %></p>
+        </div>
+        <div class="card-action">
+          <% goal.users.each do |user| %>
+          <p><%= link_to user.name, user_goals_path(user.id) %> | progress: <%= user.races.where(goal_id: goal.id).first.progress %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
 <% end %>
+
+</div>
