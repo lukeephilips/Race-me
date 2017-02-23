@@ -1,7 +1,11 @@
 class GoalsController < ApplicationController
   def index
-    @user = User.find(params[:user_id])
-    @goals = Goal.all
+    # @user = User.find(params[:user_id])
+    if params[:search_term]
+      @goals = Goal.basic_search(params[:search_term])
+    else
+      @goals = Goal.all
+    end
   end
 
   def show
@@ -57,6 +61,9 @@ class GoalsController < ApplicationController
   private
 
   def goal_params
-    params.require(:goal).permit(:start_location, :end_location, :total_distance, :name)
+    if params[:search_term]
+    else
+      params.require(:goal).permit(:start_location, :end_location, :total_distance, :name)
+    end
   end
 end

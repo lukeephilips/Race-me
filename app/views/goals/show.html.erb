@@ -5,11 +5,14 @@
       <span class="card-title"><%= @goal.name %></span>
     </div>
     <div class="card-content">
-      <p class="">Total Distance: <%= @goal.total_distance %></p>
+      <p class="">Total Distance: <%= @goal.total_distance.to_i %> miles</p>
+      <p class="">Starting Location: <%= @goal.start_location %></p>
+      <p class="">Ending Location: <%= @goal.end_location %></p>
+
     </div>
     <div class="card-action">
       <% @goal.users.each do |user| %>
-      <p><%= link_to @user.name, user_goals_path(user.id) %> | progress: <%= @user.races.where(goal_id: @goal.id).first.progress %></p>
+      <p><%= link_to user.name, user_runs_path(user.id) %> <i class="material-icons">directions_run</i> &nbsp <span style="font-size: 1.2em;">progress: <%= calc_percent(user, @goal) %></span></p>
       <% end %>
     </div>
   </div>

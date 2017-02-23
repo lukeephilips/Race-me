@@ -9,7 +9,7 @@
             <hr>
             <p>Distance: <%= run.total_distance %> miles </p>
             <p>Time: <%= run.total_time %> minutes</p>
-            <p>Avg Speed: <%= run.total_distance.to_f/(run.total_time.to_f / 60) %> mi/hr</p>
+            <p>Avg Speed: <%= (run.total_distance.to_f/(run.total_time.to_f / 60)).round(2) %> mi/hr</p>
             <p>Travel Method: <%= run.travel_method %> </p>
           </div>
           <div class="card-action center">

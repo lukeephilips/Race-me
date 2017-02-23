@@ -1,20 +1,30 @@
-<h1 class="center">All users' goals</h1>
+<h1 class="center">All goals</h1>
 <div class="row">
+  <h3>Add a new goal, buddy</h3>
+  <%= form_tag user_goals_path(current_user), method: 'get' do %>
+    <%= label_tag 'Search Term' %>
+    <%= text_field_tag :search_term %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+
 
 <% @goals.order("lower(name)").each do |goal| %>
-    <div class="col s12">
+    <div class="col s6">
       <div class="card">
         <div class="card-image">
           <img src="http://lifecdn.dailyburn.com/life/wp-content/uploads/2013/08/Running-Form_1.jpg">
-          <span class="card-title"><%= goal.name %></span>
+          <span class="card-title black-text"><%= goal.name %></span>
         </div>
         <div class="card-content">
-          <p class="">Total Distance: <%= goal.total_distance %></p>
-
+          <p class="">Total Distance: <%= goal.total_distance.to_i %> miles</p>
+          <p class="">Starting Location: <%= goal.start_location %></p>
+          <p class="">Ending Location: <%= goal.end_location %></p>
+          <br>
+          <p><%= link_to "View Details", user_goal_path(current_user.id, goal.id) %></p>
         </div>
         <div class="card-action">
           <% goal.users.each do |user| %>
-          <p><%= link_to user.name, user_runs_path(user.id) %> | progress: <%= user.races.where(goal_id: goal.id).first.progress %></p>
+          <p><%= link_to user.name, user_runs_path(user.id) %> <i class="material-icons">directions_run</i> &nbsp <span style="font-size: 1.2em;">progress: <%= calc_percent(user, goal) %></span></p>
           <% end %>
         </div>
       </div>
