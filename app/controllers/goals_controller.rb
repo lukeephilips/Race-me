@@ -15,9 +15,12 @@ class GoalsController < ApplicationController
   def create
     @user = current_user
     @goal = Goal.new(goal_params)
+    @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
     if @goal.save
       flash[:notice] = "You saved #{@goal.name}"
-      redirect_to user_goals_path(current_user)
+      respond_to do |format|
+        format.js
+      end
     else
       flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join
       render :new

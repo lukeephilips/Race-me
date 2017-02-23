@@ -1,4 +1,7 @@
-<%= form_for [@user, @run] do |f| %>
+<%= form_for [@user, @goal] do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
   <%= f.label :start_location %>
   <%= f.text_field :start_location %>
 
@@ -8,15 +11,5 @@
   <%= f.label :total_distance %>
   <%= f.text_field :total_distance %>
 
-
-  <%= f.label :total_time %>
-  <%= f.text_field :total_time %>
-
-
-  <%= f.label :travel_method %>
-  <%= f.text_field :travel_method %>
-
-  <%= f.label :goal_id %>
-  <%= f.select(:goal_id, @goals) %>
   <%= f.submit %>
 <% end %>

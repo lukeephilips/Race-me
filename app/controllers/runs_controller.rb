@@ -12,6 +12,7 @@ class RunsController < ApplicationController
   def new
     @user = current_user
     @run = @user.runs.new
+    @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
   end
 
   def create
@@ -23,7 +24,6 @@ class RunsController < ApplicationController
         flash[:notice] = "You you're on your way to a new goal"
       else
         current_race = Race.where(goal_id: @run.goal_id, user_id: @user.id ).first
-        byebug
         new_progress = current_race.progress.to_i + @run.total_distance.to_i
         current_race.update({progress: new_progress})
         flash[:notice] = "You you're that much closer to your goal"
