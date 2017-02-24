@@ -3,8 +3,15 @@ class GoalsController < ApplicationController
     # @user = User.find(params[:user_id])
     if params[:search_term]
       @goals = Goal.basic_search(params[:search_term])
+      respond_to do |format|
+        format.js
+      end
     else
       @goals = Goal.all
+      respond_to do |format|
+        format.js
+        format.html {render :index}
+      end
     end
   end
 
