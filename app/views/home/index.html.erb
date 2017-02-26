@@ -1,1 +1,31 @@
-<h1>Home Page</h1>
+<div class="row">
+  <h1>Home Page</h1>
+  <div class="col s4 card">
+    <div class="row">
+      <% if @athlete %>
+      <%= @athlete['firstname'] %> <%= @athlete['lastname'] %><br>
+      <%= image_tag @athlete['profile_medium'], class: "profile_small circle" %>
+      <% end %>
+    </div>
+    <% if @friends %>
+    <div class="row">
+      <h2>Friends:</h2>
+      <% @friends.each do |friend| %>
+        <ul><%= friend['firstname'] %></ul>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+  <% if @activities %>
+    <div class="col s4 card">
+      <%= @activities.each do |activity| %>
+      <h5><%= activity['name'] %></h5>
+        <span>Distance: <%= activity['distance'] %> meters</span><br>
+        <span>Elevation Gain: <%= activity['total_elevation_gain'] %></span><br>
+        <span>Type: <%= activity['type'] %></span><br>
+        <span>ID: <%= activity['id'] %></span>
+        <hr>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -18,6 +18,9 @@
  $secondary-color: color("light-green", "darken-1") !default;
  @import 'materialize';
 
+ .profile_small {
+   width: 100px;
+ }
  .alert{
    background-color: $secondary-color;
    position: absolute;

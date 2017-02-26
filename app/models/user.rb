@@ -9,9 +9,11 @@ class User < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :name
 
-#   def get_competitions
-#     goals = self.goals
-#     competitors = []
-#     goals.each do |goal|
-#   end
+  attr_accessor :client, :thing
+
+  # after_initialize do
+    def client
+      @client = Strava::Api::V3::Client.new(:access_token => ENV['ACCESS_TOKEN'])
+    end
+  # end
 end

@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'materialize-sass'
 gem 'textacular'
+gem 'strava-api-v3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -50,7 +51,11 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'simplecov', require: false
-
+  gem 'dotenv-rails'
+end
+group :test do
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
