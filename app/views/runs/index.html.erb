@@ -5,11 +5,11 @@
       <div class="col s6">
         <div class="card grey lighten-4">
           <div class="card-content center black-text">
-            <span class="card-title"><%= current_user.name %>'s race to <%= link_to run.goal.name, user_goal_path(@user.id, run.goal_id) %></span>
+            <span class="card-title"><%= current_user.name %>'s race to <%# link_to run.goal.name, user_goal_path(@user.id, run.goal_id) %></span>
             <hr>
-            <p>Distance: <%= run.total_distance %> miles </p>
-            <p>Time: <%= run.total_time %> minutes</p>
-            <p>Avg Speed: <%= (run.total_distance.to_f/(run.total_time.to_f / 60)).round(2) %> mi/hr</p>
+            <p>Distance: <%= convert_meters_to_miles(run.total_distance, 1) %> miles </p>
+            <p>Time: <%= convert_seconds(run.total_time, "minutes") %> minutes</p>
+            <p>Avg Speed: <%= (convert_seconds(run.total_time, "minutes")/convert_meters_to_miles(run.total_distance, 4)).round(2) %> minutes per mile</p>
             <p>Travel Method: <%= run.travel_method %> </p>
           </div>
           <div class="card-action center">

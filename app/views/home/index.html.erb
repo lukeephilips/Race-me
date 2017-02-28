@@ -1,7 +1,7 @@
 <div class="row">
   <h1>Home Page</h1>
-  <div style='width: 800px;' class="map">
-    <div id="map" style='width: 800px; height: 400px;'>
+  <div class="map-container">
+    <div id="map">
     </div>
   </div>
   <hr>
@@ -46,24 +46,3 @@
     <% end %>
   <% end %>
 </div>
-
-<script type="text/javascript">
-  handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    zoom: 3,
-  markers = handler.addMarkers([
-    {
-      "lat": <%= @activities.first['start_latitude'] %>,
-      "lng": <%= @activities.first['start_longitude'] %>,
-      "picture": {
-        "url": "https://maxcdn.icons8.com/Share/icon/Hands//middle_finger1600.png",
-        "width":  32,
-        "height": 32
-      },
-      "infowindow": "hello!"
-    }
-  ]);
-  handler.bounds.extendWith(markers);
-  handler.fitMapToBounds();
-  });
-</script>

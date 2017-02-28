@@ -20,4 +20,13 @@ class User < ApplicationRecord
   def activities
     @activities ||= self.client.list_athlete_activities
   end
+
+  after_initialize do
+    if self.runs.empty?
+      self.activities.first(10).each do |activity|
+        self.runs.create(start_latlng: activity['start_latlng'], end_latlng: activity['end_latlng'], total_distance: activity['distance'], total_time: activity['elapsed_time'], travel_method: activity['type'])
+        puts "RUNS CREATED"
+      end
+    end
+  end
 end

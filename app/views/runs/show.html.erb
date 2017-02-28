@@ -1,7 +1,33 @@
-<p><%= @run.total_distance %> miles</p>
-<p><%= @run.total_time %> minutes</p>
-<p>Destination: <%= @run.goal.name %></p>
+<p><%= convert_meters_to_miles(@run.total_distance, 2) %> miles</p>
+<p><%= convert_seconds(@run.total_time, "minutes") %> minutes</p>
+<p>Destination: <%# @run.goal.name %></p>
 
-<div style='width: 800px;' class="map">
-  <div id="map" style='width: 800px; height: 400px;'></div>
+<div class="map-container">
+  <div id="map">
+  </div>
 </div>
+
+<script>
+      var map;
+      function initMap() {
+        var start = {lat: <%= @run.start_latlng[0] %>, lng: <%= @run.start_latlng[1] %>};
+        var end = {lat: <%= @run.end_latlng[0] %>, lng: <%= @run.end_latlng[1] %>};
+
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: start,
+          zoom: 12
+        });
+        var start_marker = new google.maps.Marker({
+          position: start,
+          map: map
+        });
+        var end_marker = new google.maps.Marker({
+          position: end,
+          map: map
+        });
+      }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap"
+async defer>
+</script>
