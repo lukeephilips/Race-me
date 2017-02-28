@@ -1,5 +1,13 @@
 <div class="row">
   <h1>Home Page</h1>
+  <div style='width: 800px;' class="map">
+    <div id="map" style='width: 800px; height: 400px;'>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+
+
   <div class="col s4 card">
     <div class="row">
       <% if @athlete %>
@@ -16,16 +24,46 @@
     </div>
     <% end %>
   </div>
+</div>
+<div class="row">
   <% if @activities %>
-    <div class="col s4 card">
-      <%= @activities.each do |activity| %>
-      <h5><%= activity['name'] %></h5>
+    <% @activities.each do |activity| %>
+      <div class="col s6">
+        <h5><%= activity['name'] %></h5>
+        <span>Start lat-lng: <%= activity['start_latlng'] %></span><br>
+        <span>End lat-lng: <%= activity['end_latlng'] %></span><br>
         <span>Distance: <%= activity['distance'] %> meters</span><br>
         <span>Elevation Gain: <%= activity['total_elevation_gain'] %></span><br>
         <span>Type: <%= activity['type'] %></span><br>
         <span>ID: <%= activity['id'] %></span>
-        <hr>
-      <% end %>
-    </div>
+      </div>
+      <div class="col s6">
+        <p>MAP</p>
+
+        </div>
+      </div>
+      <hr>
+    <% end %>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    zoom: 3,
+  markers = handler.addMarkers([
+    {
+      "lat": <%= @activities.first['start_latitude'] %>,
+      "lng": <%= @activities.first['start_longitude'] %>,
+      "picture": {
+        "url": "https://maxcdn.icons8.com/Share/icon/Hands//middle_finger1600.png",
+        "width":  32,
+        "height": 32
+      },
+      "infowindow": "hello!"
+    }
+  ]);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  });
+</script>

@@ -9,11 +9,15 @@ class User < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :name
 
-  attr_accessor :client, :thing
+  attr_accessor :client, :athlete, :activities
 
-  # after_initialize do
-    def client
-      @client = Strava::Api::V3::Client.new(:access_token => ENV['ACCESS_TOKEN'])
-    end
-  # end
+  def client
+    @client = Strava::Api::V3::Client.new(:access_token => ENV['ACCESS_TOKEN'])
+  end
+  def athlete
+    @athlete ||= self.client.retrieve_current_athlete
+  end
+  def activities
+    @activities ||= self.client.list_athlete_activities
+  end
 end
