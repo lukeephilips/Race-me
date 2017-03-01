@@ -13,6 +13,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      byebug
       if auth.info.email
         user.email = auth.info.email
       else
@@ -23,23 +24,24 @@ class User < ApplicationRecord
     end
   end
 
-  # def client
-  #   @client = Strava::Api::V3::Client.new(:ACCESS_TOKEN => ENV['ACCESS_TOKEN'])
-  #   byebug
-  # end
-  # def athlete
-  #   @athlete ||= self.client.retrieve_current_athlete
-  # end
-  # def activities
-  #   @activities ||= self.client.list_athlete_activities
-  # end
+  def client
+    byebug
+    @client = Strava::Api::V3::Client.new(:ACCESS_TOKEN => ENV['ACCESS_TOKEN'])
 
-  # after_initialize do
-  #   if self.runs.empty?
-  #     self.activities.first(10).each do |activity|
-  #       self.runs.create(start_latlng: activity['start_latlng'], end_latlng: activity['end_latlng'], total_distance: activity['distance'], total_time: activity['elapsed_time'], travel_method: activity['type'], strava_id: activity['id'])
-  #       puts "RUNS CREATED"
-  #     end
-  #   end
-  # end
+  end
+  def athlete
+    @athlete ||= self.client.retrieve_current_athlete
+  end
+  def activities
+    @activities ||= self.client.list_athlete_activities
+  end
+
+  after_initialize do
+    if self.runs.empty?
+      self.activities.first(10).each do |activity|
+        self.runs.create(start_latlng: activity['start_latlng'], end_latlng: activity['end_latlng'], total_distance: activity['distance'], total_time: activity['elapsed_time'], travel_method: activity['type'], strava_id: activity['id'])
+        puts "RUNS CREATED"
+      end
+    end
+  end
 end

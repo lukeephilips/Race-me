@@ -250,6 +250,9 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'],
     scope: 'public_profile', info_fields: 'id,email,name,link'
+  # config.omniauth :strava, ENV['CLIENT_ID'], ENV['ACCESS_TOKEN'],
+  #   scope: 'public'
+
 
 
 

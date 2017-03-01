@@ -39,6 +39,8 @@ gem 'materialize-sass'
 gem 'textacular'
 gem 'strava-api-v3'
 gem 'omniauth-facebook'
+gem "omniauth-strava"
+gem 'omniauth'
 
 
 
