@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170228020612) do
+ActiveRecord::Schema.define(version: 20170228221650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20170228020612) do
     t.float    "start_latlng",   default: [],               array: true
     t.float    "end_latlng",     default: [],               array: true
     t.integer  "total_time",     default: 0
+    t.integer  "strava_id",      default: 0
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,8 +62,12 @@ ActiveRecord::Schema.define(version: 20170228020612) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "name"
+    t.string   "provider"
+    t.string   "uid"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["provider"], name: "index_users_on_provider", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["uid"], name: "index_users_on_uid", using: :btree
   end
 
 end

@@ -38,7 +38,9 @@ gem 'devise'
 gem 'materialize-sass'
 gem 'textacular'
 gem 'strava-api-v3'
-gem 'gmaps4rails'
+gem 'omniauth-facebook'
+
+
 
 
 group :development, :test do
