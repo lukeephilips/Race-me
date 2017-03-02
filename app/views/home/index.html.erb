@@ -1,13 +1,14 @@
 <div class="row">
-  <h1>Home Page</h1>
-  <div class="map-container">
-    <div id="map">
+  <!-- <div class="col s10 offset-s1"> -->
+    <div class="carousel carousel-slider center" data-indicators="true">
+      <% banner_pics.each do |pic| %>
+        <%= image_tag "running_pics/#{pic}", class: 'carousel-item' %>
+      <% end %>
     </div>
-  </div>
-  <hr>
-  <div class="row">
-
-
+  <!-- </div> -->
+</div>
+<div class="row">
+  <%= link_to 'bleh', "https://www.strava.com/oauth/authorize?client_id=16390&response_type=code&redirect_uri=http://localhost:3000/token_exchange" %>
   <div class="col s4 card">
     <div class="row">
       <% if @athlete %>
@@ -25,9 +26,9 @@
     <% end %>
   </div>
 </div>
-<div class="row">
   <% if @activities %>
     <% @activities.each do |activity| %>
+    <div class="row">
       <div class="col s6">
         <h5><%= activity['name'] %></h5>
         <span>Start lat-lng: <%= activity['start_latlng'] %></span><br>
@@ -41,8 +42,8 @@
         <p>MAP</p>
 
         </div>
-      </div>
-      <hr>
+
+    </div>
+    <hr>
     <% end %>
   <% end %>
-</div>

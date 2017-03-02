@@ -9,10 +9,9 @@
   <%= link_to "Show all", user_goals_path(current_user), method: 'get', remote: true, class: 'btn black', id: 'show-all' %>
   <% end %>
 </div>
-<div class="col s2">
-</div>
 </div>
 <div class="row">
+  <%= link_to "Add a Goal", new_user_goal_path(@user) %>
   <div class="goals">
     <%= render 'goal' %>
   </div>

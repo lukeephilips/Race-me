@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
   def index
-    # @user = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
     if params[:search_term]
       @goals = Goal.basic_search(params[:search_term])
       respond_to do |format|
@@ -18,6 +18,8 @@ class GoalsController < ApplicationController
   def show
     @goal = Goal.find(params[:id])
     @user = current_user
+    @user_origin = @goal['start_location']
+    @user_destination = @goal['end_location']
   end
 
   def new
@@ -26,6 +28,10 @@ class GoalsController < ApplicationController
   end
 
   def create
+
+    # @user_origin = params['start_location']
+    # @user_destination = params['end_location']
+
     @user = current_user
     @goal = Goal.new(goal_params)
     @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
@@ -70,7 +76,7 @@ class GoalsController < ApplicationController
   def goal_params
     if params[:search_term]
     else
-      params.require(:goal).permit(:start_location, :end_location, :total_distance, :name)
+      params.require(:goal).permit(:start_location, :end_location, :name,)
     end
   end
 end

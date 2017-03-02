@@ -39,6 +39,7 @@ gem 'materialize-sass'
 gem 'textacular'
 gem 'strava-api-v3'
 gem 'gmaps4rails'
+gem 'rest-client'
 
 
 group :development, :test do
