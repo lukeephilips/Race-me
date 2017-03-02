@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   def index
-    byebug
     @athlete ||= current_user.athlete
     # @friends ||= @client.list_athlete_friends
     @activities ||= current_user.activities
