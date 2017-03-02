@@ -1,0 +1,37 @@
+<div class=" row map-container">
+  <div class="col s8" id="map">
+  </div>
+  <div id="distance">Distance:</div>
+  <div  class="col s4" id="directionsPanel" style="float:right;width:30%;height 100%">
+  </div>
+</div>
+
+
+<script>
+function initMap() {
+     var directionsService = new google.maps.DirectionsService;
+     var directionsDisplay = new google.maps.DirectionsRenderer;
+     var map = new google.maps.Map(document.getElementById('map'), {
+       zoom: 7
+     });
+     calculateAndDisplayRoute(directionsService, directionsDisplay);
+     directionsDisplay.setMap(map);
+     directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+
+   }
+   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+     directionsService.route({
+       origin: '<%= @user_origin %>',
+       destination: '<%= @user_destination %>',
+       travelMode: 'WALKING'
+     }, function(response, status) {
+       if (status === 'OK') {
+         document.getElementById('distance').innerHTML += response.routes[0].legs[0].distance.value + " meters";
+
+         directionsDisplay.setDirections(response);
+       } else {
+         window.alert('Directions request failed due to ' + status);
+       }
+     });
+   }
+</script>

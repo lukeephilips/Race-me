@@ -26,9 +26,9 @@
     <% end %>
   </div>
 </div>
-<div class="row">
   <% if @activities %>
     <% @activities.each do |activity| %>
+    <div class="row">
       <div class="col s6">
         <h5><%= activity['name'] %></h5>
         <span>Start lat-lng: <%= activity['start_latlng'] %></span><br>
@@ -42,8 +42,8 @@
         <p>MAP</p>
 
         </div>
-      </div>
-      <hr>
+
+    </div>
+    <hr>
     <% end %>
   <% end %>
-</div>
