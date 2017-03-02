@@ -5,7 +5,7 @@
       <span class="card-title"><%= @goal.name %></span>
     </div>
     <div class="card-content">
-      <p class="">Total Distance: <%= @goal.total_distance.to_i %> miles</p>
+      <p class="">Total Distance: <%= convert_meters_to_miles(@goal.total_distance, 1) %> miles</p>
       <p class="">Starting Location: <%= @goal.start_location %></p>
       <p class="">Ending Location: <%= @goal.end_location %></p>
 

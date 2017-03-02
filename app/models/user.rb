@@ -11,19 +11,19 @@ class User < ApplicationRecord
 
   attr_accessor :client, :athlete, :activities, :access_token
 
-  def access_token
-    @access_token = nil
-  end
+  # def access_token
+  #   @access_token = nil
+  # end
 
   def client
     # @client
     @client = Strava::Api::V3::Client.new(:access_token => ENV['ACCESS_TOKEN'])
 
     # access_information = Strava::Api::V3::Auth.retrieve_access(ENV['CLIENT_ID'], ENV['CLIENT_SECRET'], 'code')
-
   end
   def athlete
     # @athlete
+    # byebug
     @athlete ||= self.client.retrieve_current_athlete
   end
   def activities
