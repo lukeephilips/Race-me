@@ -1,4 +1,5 @@
 class GoalsController < ApplicationController
+
   def retrieve_distance
     byebug
   end
@@ -37,7 +38,6 @@ class GoalsController < ApplicationController
     user_start_latlng = Geocoder.get_geo(user_start_location)
     user_end_latlng = Geocoder.get_geo(user_end_location)
     user_total_distance = Geocoder.get_distance(user_start_latlng, user_end_latlng)['rows'][0]['elements'][0]['distance']['value']
-    byebug
 
     # @user_origin = params['start_location']
     # @user_destination = params['end_location']

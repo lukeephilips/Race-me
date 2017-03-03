@@ -15,6 +15,11 @@
         <div class="nav-margin">
           <%= link_to "Race Me", root_path, class: 'brand-logo' %>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <% if @access_token %>
+              <li>Signed in as <%= session[:athlete]['firstname'] %></li>
+              <% else %>
+                <li><%= link_to 'Sign into Strava', "https://www.strava.com/oauth/authorize?client_id=16390&response_type=code&redirect_uri=http://localhost:3000/token_exchange" %></li>
+            <% end %>
             <% if current_user %>
             <li><%= link_to 'View Runs', user_runs_path(current_user) %></li>
             <li><%= link_to 'View Goals', user_goals_path(current_user.id) %></li>
