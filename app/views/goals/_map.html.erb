@@ -1,7 +1,6 @@
 <div class=" row map-container">
   <div class="col s8" id="map">
   </div>
-  <div id="distance">Distance:</div>
   <div  class="col s4" id="directionsPanel" style="float:right;width:30%;height 100%">
   </div>
 </div>
@@ -26,8 +25,6 @@ function initMap() {
        travelMode: 'WALKING'
      }, function(response, status) {
        if (status === 'OK') {
-         document.getElementById('distance').innerHTML += response.routes[0].legs[0].distance.value + " meters";
-
          directionsDisplay.setDirections(response);
        } else {
          window.alert('Directions request failed due to ' + status);
