@@ -14,9 +14,9 @@ class User < ApplicationRecord
   def code
     @code
   end
-  def access_token
-    @access_token
-  end
+  # def access_token
+  #   @access_token
+  # end
 
   def client
     @client

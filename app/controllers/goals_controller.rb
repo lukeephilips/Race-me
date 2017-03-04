@@ -1,9 +1,6 @@
 class GoalsController < ApplicationController
-
-  def retrieve_distance
-    byebug
-  end
   def index
+    byebug
     @user = User.find(params[:user_id])
     if params[:search_term]
       @goals = Goal.basic_search(params[:search_term])
@@ -47,10 +44,11 @@ class GoalsController < ApplicationController
     @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
     if @goal.save
       flash[:notice] = "You saved #{@goal.name}"
-      respond_to do |format|
-        format.js
-        format.html {redirect_to user_goals_path(current_user)}
-      end
+      # respond_to do |format|
+      #   format.js
+      #   format.html {redirect_to user_goals_path(current_user)}
+      # end
+      redirect_to user_goal_path(current_user,@goal)
     else
       flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join
       render :new

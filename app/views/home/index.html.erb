@@ -30,6 +30,7 @@
     <div class="row">
       <div class="col s6">
         <h5><%= activity['name'] %></h5>
+        <span>Date: <%= Time.parse(activity['start_date_local']).month %>/<%= Time.parse(activity['start_date_local']).day %>/<%= Time.parse(activity['start_date_local']).year %></span><br>
         <span>Start lat-lng: <%= activity['start_latlng'] %></span><br>
         <span>End lat-lng: <%= activity['end_latlng'] %></span><br>
         <span>Distance: <%= activity['distance'] %> meters</span><br>
