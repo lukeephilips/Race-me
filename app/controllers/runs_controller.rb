@@ -37,8 +37,8 @@ class RunsController < ApplicationController
   end
 
   def edit
-    @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
     @user = current_user
+    @goals = @user.goals.collect{|goal| [goal.name, goal.id]}
     @run = Run.find(params[:id])
   end
 
@@ -46,7 +46,15 @@ class RunsController < ApplicationController
     @user = current_user
     @run = Run.find(params[:id])
     if @run.update(run_params)
-      flash[:notice] = "You edited your run"
+      @race = @user.races.new(goal_id: @run.goal_id, progress: @run.total_distance.to_i)
+      if @race.save
+        flash[:notice] = "You're on your way to a new goal"
+      else
+        current_race = Race.where(goal_id: @run.goal_id, user_id: @user.id ).first
+        new_progress = current_race.progress.to_i + @run.total_distance.to_i
+        current_race.update({progress: new_progress})
+        flash[:notice] = "You're that much closer to #{@run.goal.name}"
+      end
       redirect_to user_runs_path(current_user)
     else
       flash[:alert] = @run.errors.full_messages.each {|m| m.to_s}.join

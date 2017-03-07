@@ -20,3 +20,9 @@
   <%= f.select :goal_id, @goals, id: 'run-select'  %>
   <%= f.submit class: 'btn' %>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('select').material_select();
+  });
+</script>
