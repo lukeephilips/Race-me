@@ -5,4 +5,7 @@ class Goal < ApplicationRecord
 
   validates_presence_of :name
   validates_uniqueness_of :name
+  validates_presence_of :start_location
+  validates_presence_of :end_location
+
 end

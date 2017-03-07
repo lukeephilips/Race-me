@@ -9,14 +9,7 @@ class User < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :name
 
-  attr_accessor :code, :access_token, :client, :athlete, :activities
-
-  def code
-    @code
-  end
-  # def access_token
-  #   @access_token
-  # end
+  attr_accessor :client, :athlete, :activities
 
   def client
     @client

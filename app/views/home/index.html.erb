@@ -33,7 +33,7 @@
         <span>Date: <%= Time.parse(activity['start_date_local']).month %>/<%= Time.parse(activity['start_date_local']).day %>/<%= Time.parse(activity['start_date_local']).year %></span><br>
         <span>Start lat-lng: <%= activity['start_latlng'] %></span><br>
         <span>End lat-lng: <%= activity['end_latlng'] %></span><br>
-        <span>Distance: <%= activity['distance'] %> meters</span><br>
+        <span>Distance: <%= convert_meters_to_miles(activity['distance'],2) %> miles</span><br>
         <span>Elevation Gain: <%= activity['total_elevation_gain'] %></span><br>
         <span>Type: <%= activity['type'] %></span><br>
         <span>ID: <%= activity['id'] %></span>

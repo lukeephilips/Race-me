@@ -1,6 +1,5 @@
 class GoalsController < ApplicationController
   def index
-    byebug
     @user = User.find(params[:user_id])
     if params[:search_term]
       @goals = Goal.basic_search(params[:search_term])
@@ -43,12 +42,32 @@ class GoalsController < ApplicationController
     @goal = Goal.new({name: user_name, start_location: user_start_location, end_location: user_end_location, start_latlng: user_start_latlng, end_latlng: user_end_latlng, total_distance: user_total_distance})
     @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
     if @goal.save
-      flash[:notice] = "You saved #{@goal.name}"
-      # respond_to do |format|
-      #   format.js
-      #   format.html {redirect_to user_goals_path(current_user)}
-      # end
-      redirect_to user_goal_path(current_user,@goal)
+
+      @user.races.create(goal_id: @goal.id, progress: 0)
+
+      flash_message = "You saved #{@goal.name}"
+      if params[:opponents] != ''
+        opponents = params[:opponents].split(", ")
+        opponents.each do |invited_opponent|
+          byebug
+          stripped_opponent = invited_opponent.strip
+          if User.exists?(email: stripped_opponent)
+            invited_user = User.find_by(email: stripped_opponent)
+            byebug
+            invited_user.races.create(user_id: invited_user.id, goal_id: @goal.id, progress: 0)
+            flash_message += "\n"+"and invited " + invited_user.email
+          else
+            flash_message += "\n" + stripped_opponent + " does not exist"
+          end
+        end
+
+        flash[:notice] = flash_message
+        # respond_to do |format|
+        #   format.js
+        #   format.html {redirect_to user_goals_path(current_user)}
+        # end
+        redirect_to user_goal_path(current_user,@goal)
+      end
     else
       flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join
       render :new
