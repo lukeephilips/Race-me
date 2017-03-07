@@ -25,25 +25,30 @@
     <% end %>
   </div>
 </div>
-  <% if @activities %>
-    <% @activities.each do |activity| %>
-    <div class="row">
-      <div class="col s6">
-        <h5><%= activity['name'] %></h5>
-        <span>Date: <%= Time.parse(activity['start_date_local']).month %>/<%= Time.parse(activity['start_date_local']).day %>/<%= Time.parse(activity['start_date_local']).year %></span><br>
-        <span>Start lat-lng: <%= activity['start_latlng'] %></span><br>
-        <span>End lat-lng: <%= activity['end_latlng'] %></span><br>
-        <span>Distance: <%= convert_meters_to_miles(activity['distance'],2) %> miles</span><br>
-        <span>Elevation Gain: <%= activity['total_elevation_gain'] %></span><br>
-        <span>Type: <%= activity['type'] %></span><br>
-        <span>ID: <%= activity['id'] %></span>
+<% if @uncategorized_runs %>
+  <% @uncategorized_runs.each do |run| %>
+  <div class="col s6">
+    <div class="card grey lighten-4">
+      <div class="card-content center black-text">
+        <span class="card-title">Distance: <%= convert_meters_to_miles(run.total_distance, 1) %> miles | Date: <%= run.date %></span>
+        <hr>
+        <p>Time: <%= convert_seconds(run.total_time, "minutes") %> minutes</p>
+        <p>Avg Speed: <%= (convert_seconds(run.total_time, "minutes")/convert_meters_to_miles(run.total_distance, 4)).round(2) %> minutes per mile</p>
+        <p>Travel Method: <%= run.travel_method %> </p>
+        <% if run.goal %>
+        <h5>Race: <%= run.goal.name %></h5>
+        <% else %>
+          <h5>Assign to a race</h5>
+        <% end %>
+
       </div>
-      <div class="col s6">
-        <p>MAP</p>
+      <div class="card-action center">
+        <%= link_to "view", user_run_path(current_user, run) %>
 
-        </div>
-
+        <%= link_to "edit", edit_user_run_path(current_user, run) %>
+        <%= link_to "delete", user_run_path(current_user, run), :data => {confirm: 'Are you sure you want to delete this run?', method: 'delete'} %>
+      </div>
     </div>
-    <hr>
-    <% end %>
+  </div>
   <% end %>
+<% end %>
