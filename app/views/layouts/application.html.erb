@@ -16,7 +16,7 @@
           <%= link_to "Race Me", root_path, class: 'brand-logo' %>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <% if current_user %>
-              <% if current_user.token %>
+              <% if current_user.token.exists? %>
               <li style="color: darkred">Authenticated with Strava :)</li>
               <% else %>
               <li><%= link_to 'Sign into Strava', "https://www.strava.com/oauth/authorize?client_id=16390&response_type=code&redirect_uri=http://localhost:3000/token_exchange" %></li>
