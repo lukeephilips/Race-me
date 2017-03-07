@@ -4,10 +4,10 @@ class HomeController < ApplicationController
     @uncategorized_runs ||= current_user.runs.where(goal_id: nil)
     end
 
-    if current_user.token
-      @client = Strava::Api::V3::Client.new(:access_token => current_user.token)
-      @athlete ||= @client.retrieve_current_athlete
-      @users = User.all
+    # if current_user.token
+    #   @client = Strava::Api::V3::Client.new(:access_token => current_user.token)
+    #   @athlete ||= @client.retrieve_current_athlete
+    #   @users = User.all
 
       # if current_user.runs.empty?
       #   @activities.first(20).each do |activity|
@@ -25,6 +25,6 @@ class HomeController < ApplicationController
       #     # end
       #   # end
       # end
-    end
+    # end
   end
 end

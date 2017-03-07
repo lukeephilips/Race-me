@@ -2,10 +2,10 @@
 <%= link_to 'Add a Run', new_user_run_path(current_user), class: 'btn right-align' %>
 <div class="row">
     <% @runs.order(date: :desc).each do |run| %>
-      <div class="col s6">
+      <div class="col s4">
         <div class="card grey lighten-4">
           <div class="card-content center black-text">
-            <span class="card-title">Distance: <%= convert_meters_to_miles(run.total_distance, 1) %> miles | Date: <%= run.date %></span>
+            <span class="card-title">Distance: <%= convert_meters_to_miles(run.total_distance, 1) %> miles <br> Date: <%= display_date(run.date) %></span>
             <hr>
             <p>Time: <%= convert_seconds(run.total_time, "minutes") %> minutes</p>
             <p>Avg Speed: <%= (convert_seconds(run.total_time, "minutes")/convert_meters_to_miles(run.total_distance, 4)).round(2) %> minutes per mile</p>
