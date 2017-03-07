@@ -19,7 +19,7 @@
               <% if current_user.token %>
               <li style="color: darkred">Authenticated with Strava :)</li>
               <% else %>
-              <li><%= link_to 'Sign into Strava', "https://www.strava.com/oauth/authorize?client_id=16390&response_type=code&redirect_uri=http://localhost:3000/token_exchange" %></li>
+              <li><%= link_to 'Sign into Strava', "https://www.strava.com/oauth/authorize?client_id=16390&response_type=code&redirect_uri=#{ENV['REDIRECT_URI']/token_exchange" %></li>
               <% end %>
             <li><%= link_to 'View Runs', user_runs_path(current_user) %></li>
             <li><%= link_to 'View Goals', user_goals_path(current_user.id) %></li>
