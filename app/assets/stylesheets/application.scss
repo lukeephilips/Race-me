@@ -89,16 +89,6 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-// body {
-//   font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
-//   color: #404040;
-// }
-
-// .container {
-//   margin: 80px auto;
-//   width: 640px;
-//   text-align: center;
-
 .progress {
   margin: 0 auto;
   width: 400px;
@@ -133,7 +123,7 @@
 
   &:before {
     bottom: 0;
-    background: url('../images/stripes.png') 0 0 repeat;
+    // background: url('../images/stripes.png') 0 0 repeat;
     border-radius: 4px 4px 0 0;
   }
 
@@ -145,14 +135,6 @@
   }
 }
 
-/*
- * Note: using adjacent or general sibling selectors combined with
- *       pseudo classes doesn't work in Safari 5.0 and Chrome 12.
- *       See this article for more info and a potential fix:
- *       http://css-tricks.com/webkit-sibling-bug/
- */
-
-// .progress > .progress-bar  {
   #very-low{
     background-color: #f63a0f;
   }
@@ -167,6 +149,4 @@
   }
   #very-high {
     background-color: #86e01e;
-
   }
-// }
