@@ -77,6 +77,8 @@ class GoalsController < ApplicationController
   def edit
     @user = current_user
     @goal = Goal.find(params[:id])
+    @goals = @user.goals.collect{|goal| [goal.name, goal.id]}
+
   end
 
   def update
