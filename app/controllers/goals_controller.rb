@@ -20,6 +20,8 @@ class GoalsController < ApplicationController
     @user = current_user
     @user_origin = @goal['start_location']
     @user_destination = @goal['end_location']
+    # @progress = user.races.where(goal_id: goal.id).first.progress / goal.total_distance * 100)
+
   end
 
   def new

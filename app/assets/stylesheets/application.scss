@@ -17,6 +17,11 @@
  $primary-color: color("blue-grey", "base") !default;
  $secondary-color: color("light-green", "darken-1") !default;
  @import 'materialize';
+
+ body {
+     background: #2a2a2a;
+
+ }
 .map-container{
   #map{
     height: 400px;
@@ -75,8 +80,7 @@
    margin-left: 10px;
  }
 
- @import './mixins',
-
+ @import './mixins';
 /*
  * Copyright (c) 2012-2013 Thibaut Courouble
  * http://www.cssflow.com
@@ -85,24 +89,24 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-body {
-  font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
-  color: #404040;
-  background: #2a2a2a url('../images/bg.png') 0 0 repeat;
-}
+// body {
+//   font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+//   color: #404040;
+// }
 
-.container {
-  margin: 80px auto;
-  width: 640px;
-  text-align: center;
-
-  .progress {
-    margin: 0 auto;
-    width: 400px;
-  }
-}
+// .container {
+//   margin: 80px auto;
+//   width: 640px;
+//   text-align: center;
 
 .progress {
+  margin: 0 auto;
+  width: 400px;
+}
+// }
+
+.progress {
+  height: 25px;
   padding: 4px;
   background: rgba(black, .25);
   border-radius: 6px;
@@ -148,44 +152,21 @@ body {
  *       http://css-tricks.com/webkit-sibling-bug/
  */
 
-#five:checked ~ .progress > .progress-bar,  {
-  width: 5%;
-  background-color: #f63a0f;
-}
-
-#twentyfive:checked ~ .progress > .progress-bar {
-  width: 25%;
-  background-color: #f27011;
-}
-
-#fifty:checked ~ .progress > .progress-bar {
-  width: 50%;
-  background-color: #f2b01e;
-}
-
-#seventyfive:checked ~ .progress > .progress-bar {
-  width: 75%;
-  background-color: #f2d31b;
-}
-
-#onehundred:checked ~ .progress > .progress-bar {
-  width: 100%;
-  background-color: #86e01e;
-}
-
-.radio { display: none; }
-
-.label {
-  display: inline-block;
-  margin: 0 5px 20px;
-  padding: 3px 8px;
-  color: #aaa;
-  text-shadow: 0 1px black;
-  border-radius: 3px;
-  cursor: pointer;
-
-  .radio:checked + & {
-    color: white;
-    background: rgba(black, .25);
+// .progress > .progress-bar  {
+  #very-low{
+    background-color: #f63a0f;
   }
-}
+  #low{
+    background-color: #f27011;
+  }
+  #medium{
+    background-color: #f2b01e;
+  }
+  #high{
+    background-color: #f2d31b;
+  }
+  #very-high {
+    background-color: #86e01e;
+
+  }
+// }
