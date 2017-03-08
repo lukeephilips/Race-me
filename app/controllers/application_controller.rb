@@ -7,8 +7,7 @@ class ApplicationController < ActionController::Base
     access_information = Strava::Api::V3::Auth.retrieve_access(ENV['CLIENT_ID'], ENV['CLIENT_SECRET'], code)
     access_token = access_information['access_token']
     current_user.update({token: access_token})
-
-    byebug
+    
     if current_user.token && current_user.runs.empty?
       @client = Strava::Api::V3::Client.new(:access_token => current_user.token)
       @activities ||= @client.list_athlete_activities
