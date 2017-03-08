@@ -19,17 +19,18 @@
  @import 'materialize';
 
  body {
-    //  background-image: url(image-path("arctic-min.jpg"));
-     background-image: image-url("Petra-min.jpg");
-     background-size: cover;
+  //  background-image: url(image-path("arctic-min.jpg"));
+  background-image: image-url("Petra-min.jpg");
+  //  background-size: cover;
+  background-size: 100% 100%;
+
 
  }
  .container{
-   background-color: rgba(white, .8);
-   width: 98%;
+   background-color: rgba(white, .6);
+   width: 100%;
    margin-top: 2%;
    margin-bottom: 2%;
-
    padding: 5%;
  }
 .map-container{
