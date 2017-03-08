@@ -18,6 +18,14 @@
  $secondary-color: color("light-green", "darken-1") !default;
  @import 'materialize';
 
+ a {
+    @extend .pink-text, .text-darken-4;
+    &:hover{
+      font-weight: bold;
+      @extend .pink-text, .text-accent-4
+    }
+  }
+
  body {
   //  background-image: url(image-path("arctic-min.jpg"));
   background-image: image-url("Petra-min.jpg");

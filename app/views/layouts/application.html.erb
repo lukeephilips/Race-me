@@ -17,13 +17,13 @@
           <ul id="nav-mobile" class="right">
             <% if current_user %>
               <% if current_user.token %>
-              <li style="color: darkred">Authenticated with Strava :)</li>
+              <li>Authenticated with Strava</li>
               <% else %>
               <li><%= link_to 'Sign into Strava', "https://www.strava.com/oauth/authorize?client_id=#{ENV['CLIENT_ID']}&response_type=code&redirect_uri=http#{ENV['REDIRECT_URI']}/token_exchange" %></li>
               <% end %>
             <li><%= link_to 'View Runs', user_runs_path(current_user) %></li>
             <li><%= link_to 'View Goals', user_goals_path(current_user.id) %></li>
-            <li><%= link_to "Log out, #{current_user.name}", destroy_user_session_path, method: 'delete' %></li>
+            <li><%= link_to "Log out #{current_user.name}", destroy_user_session_path, method: 'delete' %></li>
             <% else %>
             <li><%= link_to 'Log In', new_user_session_path %>  </li>
             <% end %>
