@@ -13,7 +13,7 @@ class RunsController < ApplicationController
   def new
     @user = current_user
     @run = @user.runs.new
-    @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
+    @goals = @user.goals.collect{|goal| [goal.name, goal.id]}
   end
 
   def create

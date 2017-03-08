@@ -1,5 +1,5 @@
 <h3><%= @user.name %>'s runs</h3>
 <%= link_to 'Add a Run', new_user_run_path(current_user), class: 'btn right-align' %>
 <div class="row">
-  <%= render 'layouts/_run_card.html.erb' %>
+  <%= render 'run_card.html.erb' %>
   </div>
