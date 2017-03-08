@@ -1,15 +1,13 @@
 <div class="row">
-  <!-- <div class="col s10 offset-s1"> -->
-    <div class="carousel carousel-slider center" data-indicators="true">
-      <% banner_pics.each do |pic| %>
-        <%= image_tag "running_pics/#{pic}", class: 'carousel-item' %>
-      <% end %>
-    </div>
-  <!-- </div> -->
+  <div class="carousel carousel-slider center" data-indicators="true">
+    <% banner_pics.each do |pic| %>
+      <%= image_tag "running_pics/#{pic}", class: 'carousel-item' %>
+    <% end %>
+  </div>
 </div>
+
 <div class="row">
-  <div class="col s4 card">
-    <div class="row">
+  <div class="col s12 card">
       <% if @athlete %>
       <%= @athlete['firstname'] %> <%= @athlete['lastname'] %><br>
       <%= image_tag @athlete['profile_medium'], class: "profile_small circle" %>
@@ -24,10 +22,11 @@
     </div>
     <% end %>
   </div>
-</div>
+<div class="row">
+
 <% if @uncategorized_runs %>
   <% @uncategorized_runs.each do |run| %>
-  <div class="col s6">
+  <div class="col s4">
     <div class="card grey lighten-4">
       <div class="card-content center black-text">
         <span class="card-title">Distance: <%= convert_meters_to_miles(run.total_distance, 1) %> miles | Date: <%= run.date %></span>
@@ -52,3 +51,4 @@
   </div>
   <% end %>
 <% end %>
+</div>
