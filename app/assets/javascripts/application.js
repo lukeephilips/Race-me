@@ -17,7 +17,7 @@
 //= require materialize-sprockets
 
 $(document).ready(function(){
-  $('.carousel.carousel-slider').carousel({fullWidth: true}, {autoplay: true});
+  $('.carousel').carousel();
   $('select').material_select();
 
   $('.alert').click(function() {

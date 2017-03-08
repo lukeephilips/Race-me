@@ -49,11 +49,9 @@ class GoalsController < ApplicationController
       if params[:opponents] != ''
         opponents = params[:opponents].split(", ")
         opponents.each do |invited_opponent|
-          byebug
           stripped_opponent = invited_opponent.strip
           if User.exists?(email: stripped_opponent)
             invited_user = User.find_by(email: stripped_opponent)
-            byebug
             invited_user.races.create(user_id: invited_user.id, goal_id: @goal.id, progress: 0)
             flash_message += "\n"+"and invited " + invited_user.email
           else
@@ -62,11 +60,11 @@ class GoalsController < ApplicationController
         end
 
         flash[:notice] = flash_message
-        # respond_to do |format|
-        #   format.js
-        #   format.html {redirect_to user_goals_path(current_user)}
-        # end
-        redirect_to user_goal_path(current_user,@goal)
+        respond_to do |format|
+          format.js
+          format.html {redirect_to user_goal_path(current_user,@goal)}
+        end
+        # redirect_to user_goal_path(current_user,@goal)
       end
     else
       flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join

@@ -31,14 +31,12 @@
         </div>
       </div>
     </nav>
-    <div class="container">
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>">
         <%= image_tag 'x.png', class: 'x' %>
         <h6 class="message"><%= value %></h6>
       </div>
     <% end %>
-  </div>
     <div class="container">
       <%= yield %>
     </div>

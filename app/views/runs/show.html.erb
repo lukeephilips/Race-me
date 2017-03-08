@@ -1,5 +1,7 @@
-<p><%= convert_meters_to_miles(@run.total_distance, 2) %> miles</p>
-<p><%= convert_seconds(@run.total_time, "minutes") %> minutes</p>
-<p>Destination: <%# @run.goal.name %></p>
-
-<%= render 'map' %>
+<div class="card">
+  <p>Distance: <%= convert_meters_to_miles(@run.total_distance, 2) %> miles</p>
+  <p>Time: <%= convert_seconds(@run.total_time, "minutes") %> minutes</p>
+<hr>
+<%= render 'run_map' %>
+<br>
+</div>

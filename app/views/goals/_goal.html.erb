@@ -14,7 +14,10 @@
       </div>
       <div class="card-action">
         <% goal.users.each do |user| %>
-        <p><%= link_to user.name, user_runs_path(user.id) %> <i class="material-icons">directions_run</i> &nbsp <span style="font-size: 1.2em;">progress: <%= calc_percent(user, goal) %></span></p>
+        <p><%= link_to user.name, user_runs_path(user.id) %> <i class="material-icons">directions_run</i> &nbsp <span style="font-size: 1.2em;">progress: <%= calc_percent(user, goal) %></span>
+        <div class="progress">
+          <div class="progress-bar" style="width: <%= width =calc_percent(user, goal) %>" id="<%= progress_color(width) %>"></div>
+        </div></p>
         <% end %>
       </div>
     </div>
