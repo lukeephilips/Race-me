@@ -42,6 +42,9 @@
  .profile_small {
    width: 100px;
  }
+ .run-goal{
+   height: 160px;
+ }
  .alert{
    background-color: $secondary-color;
    position: absolute;
@@ -102,8 +105,10 @@
  */
 
 .progress {
-  // margin: 0 auto;
-  width: 400px;
+// margin: 0 auto;
+// width: 400px;
+  width: 100%;
+
 }
 // }
 
@@ -163,6 +168,5 @@
     background-color: #86e01e;
   }
   #chicken-dinner{
-    background-color: purple;
     background-image: url('http://rs525.pbsrc.com/albums/cc333/ljmhari/bgs/motifs/stars/starfettiwht.png~c200');
   }

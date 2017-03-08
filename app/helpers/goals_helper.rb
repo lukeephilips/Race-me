@@ -1,7 +1,7 @@
 module GoalsHelper
   def calc_percent(user, goal)
     percent = (user.races.where(goal_id: goal.id).first.progress / goal.total_distance *
-     100).round(2)
+     100).to_i
      if percent <= 100
        percent.to_s.concat("%")
      else

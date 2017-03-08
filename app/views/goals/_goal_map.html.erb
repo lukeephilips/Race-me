@@ -15,7 +15,7 @@ function initMap() {
      });
      calculateAndDisplayRoute(directionsService, directionsDisplay);
      directionsDisplay.setMap(map);
-     directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+    //  directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
    }
    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -25,7 +25,6 @@ function initMap() {
        travelMode: 'WALKING'
      }, function(response, status) {
        if (status === 'OK') {
-         debugger;
          directionsDisplay.setDirections(response);
        } else {
          window.alert('Directions request failed due to ' + status);

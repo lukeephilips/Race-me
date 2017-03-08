@@ -55,6 +55,7 @@ class RunsController < ApplicationController
         current_race.update({progress: new_progress})
         flash[:notice] = "You're that much closer to #{@run.goal.name}"
       end
+      
       redirect_to user_runs_path(current_user)
     else
       flash[:alert] = @run.errors.full_messages.each {|m| m.to_s}.join
