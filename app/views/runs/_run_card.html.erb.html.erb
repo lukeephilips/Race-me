@@ -10,7 +10,7 @@
           <br>
           <div class="run-goal">
             <% if run.goal %>
-              <strong><p>Race: <%= run.goal.name %></p></strong>
+              <strong><p>Goal: <%= link_to run.goal.name, user_goal_path(@user, run.goal) %></p></strong>
                 <div class="progress">
                   <div class="progress-bar" style="width: <%= width =calc_percent(@user, run.goal) %>" id="<%= progress_color(width) %>"></div>
                 </div>

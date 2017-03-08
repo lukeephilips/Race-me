@@ -56,7 +56,7 @@ class RunsController < ApplicationController
         flash[:notice] = "You're that much closer to #{@run.goal.name}"
       end
 
-      redirect_to user_runs_path(current_user)
+      redirect_to user_goal_path(current_user, @run.goal)
     else
       flash[:alert] = @run.errors.full_messages.each {|m| m.to_s}.join
       render :edit
