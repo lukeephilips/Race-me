@@ -6,23 +6,31 @@
   </div>
 </div> -->
 <div class="row">
-  <div class="col s12 card">
+
+</div>
+<div class="row card">
+  <div class="col s2">
       <% if @athlete %>
       <%= @athlete['firstname'] %> <%= @athlete['lastname'] %><br>
       <%= image_tag @athlete['profile_medium'], class: "profile_small circle" %>
       <% end %>
-    </div>
-    <% if @friends %>
-    <div class="row">
-      <h2>Friends:</h2>
-      <% @friends.each do |friend| %>
-        <ul><%= friend['firstname'] %></ul>
-      <% end %>
-    </div>
+  </div>
+  <div class="col s10">
+    <h6>Create virtual races and move along your virtual route each time you excercise with Strava. Make a solo run or challenge your friends!</h6>
+    <% if !current_user.token %>
+      <h5>First things first, login to your strava account in the navbar.</h5>
+    <% elsif current_user.runs.empty? %>
+      <h5>Looks like you don't have any runs on strava. No worries, you can just manually <%= link_to "enter your runs", user_runs_path(current_user) %>.</h5>
+    <% elsif current_user.runs && current_user.races.empty? %>
+      <h5>Next up, <%= link_to "Create a goal", user_goals_path(current_user)%></h5>
+    <% else %>
+      <h5>Assign your runs to an active race to move along your virtual route. Check your </h5>
     <% end %>
   </div>
+</div>
 <div class="row">
   <% if @runs %>
+  <h3 class="center">Unassigned Runs</h3>
     <%= render 'runs/run_card.html.erb' %>
   <% end %>
 </div>

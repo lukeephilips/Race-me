@@ -1,7 +1,12 @@
-<h1 class="center">All <%= @user.name %>'s goals</h1>
+<h3 class="center"><%= @user.name %>'s goals</h3>
 <div class="row">
   <div class="col s4">
-  <h6>Filter by search</h6>
+    <%= link_to "Add a Goal", new_user_goal_path(@user), class: 'btn' %>
+  </div>
+</div>
+<div class="row">
+  <div class="col s4 right">
+  <h6>Filter goals</h6>
   <%= form_tag user_goals_path(current_user), method: 'get', remote: true do %>
   <%= label_tag 'Search Term' %>
   <%= text_field_tag :search_term  %>
@@ -11,7 +16,6 @@
 </div>
 </div>
 <div class="row">
-  <%= link_to "Add a Goal", new_user_goal_path(@user) %>
   <div class="goals">
     <%= render 'goal' %>
   </div>

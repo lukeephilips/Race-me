@@ -1,15 +1,21 @@
-<h3>Add a new goal, buddy</h3>
-<%= form_for [@user, @goal], remote: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<div class="col s4">
+  <div class="card grey lighten-4">
+    <div class="card-content black-text">
+      <h3>Add a new goal</h3>
+      <%= form_for [@user, @goal], remote: true do |f| %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
 
-  <%= f.label :start_location %>
-  <%= f.text_field :start_location %>
+        <%= f.label "Enter a start location for Google maps (ex: Steel Bridge, Portland)" %>
+        <%= f.text_field :start_location %>
 
-  <%= f.label :end_location %>
-  <%= f.text_field :end_location %>
+        <%= f.label "Enter an end location for Google maps (ex: Ross Island Bridge, Portland)" %>
+        <%= f.text_field :end_location %>
 
-  <%= label_tag :opponents %>
-  <%= text_field_tag :opponents %>
-  <%= f.submit %>
-<% end %>
+        <%= label_tag "Invite opponents by email (separate opponents with commas)" %>
+        <%= text_field_tag :opponents %>
+        <%= f.submit class: 'btn' %>
+      <% end %>
+    </div>
+  </div>
+</div>
