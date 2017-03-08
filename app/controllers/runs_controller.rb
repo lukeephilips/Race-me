@@ -55,7 +55,7 @@ class RunsController < ApplicationController
         current_race.update({progress: new_progress})
         flash[:notice] = "You're that much closer to #{@run.goal.name}"
       end
-      
+
       redirect_to user_runs_path(current_user)
     else
       flash[:alert] = @run.errors.full_messages.each {|m| m.to_s}.join
@@ -74,6 +74,6 @@ class RunsController < ApplicationController
   private
 
   def run_params
-    params.require(:run).permit(:start_location, :end_location, :total_time, :total_distance, :travel_method, :goal_id)
+    params.require(:run).permit(:start_location, :end_location, :total_time, :total_distance, :travel_method, :goal_id, :date)
   end
 end
