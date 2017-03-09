@@ -1,11 +1,11 @@
-<script type="text/javascript">
-$(document).ready(function(){
-  $('select').material_select();
-
-})
-</script>
 <%= render 'form' %>
 <br>
 <div class="goal-modal">
 <%= link_to "Add a Goal", new_user_goal_path(current_user), remote: true, class: 'btn black' %>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('select').material_select();
+})
+</script>

@@ -19,6 +19,8 @@ class RunsController < ApplicationController
   def create
     @user = current_user
     @run = @user.runs.new(run_params)
+    @goals = @user.goals.collect{|goal| [goal.name, goal.id]}
+
     if @run.save
       @race = @user.races.new(goal_id: @run.goal_id, progress: @run.total_distance.to_i)
       if @race.save

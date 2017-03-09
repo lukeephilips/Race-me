@@ -35,6 +35,9 @@ class GoalsController < ApplicationController
     user_end_latlng = Geocoder.get_geo(user_end_location)
     user_total_distance = Geocoder.get_distance(user_start_latlng, user_end_latlng)['rows'][0]['elements'][0]['distance']['value']
 
+    # @user_origin = params['start_location']
+    # @user_destination = params['end_location']
+
     @user = current_user
     @goal = Goal.new({name: user_name, start_location: user_start_location, end_location: user_end_location, start_latlng: user_start_latlng, end_latlng: user_end_latlng, total_distance: user_total_distance})
     @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
@@ -54,12 +57,12 @@ class GoalsController < ApplicationController
             flash_message += "\n" + stripped_opponent + " does not exist"
           end
         end
-
         flash[:notice] = flash_message
         respond_to do |format|
           format.js
           format.html {redirect_to user_goal_path(current_user,@goal)}
         end
+        # redirect_to user_goal_path(current_user,@goal)
       end
     else
       flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join
