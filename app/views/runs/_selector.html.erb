@@ -1,14 +1,15 @@
 <%= form_for [@user, run] do |f| %>
-    <%= f.label :goal_id %>
-    <%= f.select(:goal_id, @user.goals.collect{|goal| [goal.name, goal.id]}) %>
-    <%= f.submit 'Assign Run', class: 'btn' %>
+    <%= f.label "Select a goal to assign these miles" %>
+    <%= f.select(:goal_id, @goals.collect{|goal| [goal.name, goal.id]}) %>
 <% end %>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('select').material_select();
-    $('.dropdown-content').change(function(){
-      alert('fukka yoo');
+$(document).ready(function(){
+  $('select').material_select();
+});
+  $(document).on("turbolinks:load", function(){
+    $('form').on("change", "select", function(){
+      $(this).parent().parent('form').submit();
     });
   });
 </script>
