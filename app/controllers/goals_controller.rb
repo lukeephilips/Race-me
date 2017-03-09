@@ -1,6 +1,8 @@
 class GoalsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
+
+# search function
     if params[:search_term]
       @goals = @user.goals.basic_search(params[:search_term])
       respond_to do |format|
@@ -28,6 +30,7 @@ class GoalsController < ApplicationController
   end
 
   def create
+# collect user input and make calls to GMaps geotagging
     user_name = goal_params[:name]
     user_start_location = goal_params[:start_location]
     user_end_location = goal_params[:end_location]
@@ -35,17 +38,16 @@ class GoalsController < ApplicationController
     user_end_latlng = Geocoder.get_geo(user_end_location)
     user_total_distance = Geocoder.get_distance(user_start_latlng, user_end_latlng)['rows'][0]['elements'][0]['distance']['value']
 
-    # @user_origin = params['start_location']
-    # @user_destination = params['end_location']
-
     @user = current_user
     @goal = Goal.new({name: user_name, start_location: user_start_location, end_location: user_end_location, start_latlng: user_start_latlng, end_latlng: user_end_latlng, total_distance: user_total_distance})
     @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
 
     if @goal.save
+# create user_goal join
       @user.races.create(goal_id: @goal.id, progress: 0)
       flash_message = "You saved #{@goal.name}"
       if params[:opponents] != ''
+# invite opponents, TODO: send invite email
         opponents = params[:opponents].split(", ")
         opponents.each do |invited_opponent|
           stripped_opponent = invited_opponent.strip
@@ -62,7 +64,6 @@ class GoalsController < ApplicationController
           format.js
           format.html {redirect_to user_goal_path(current_user,@goal)}
         end
-        redirect_to user_goal_path(current_user,@goal)
       end
     else
       flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join
@@ -102,7 +103,7 @@ class GoalsController < ApplicationController
   def goal_params
     if params[:search_term]
     else
-      params.require(:goal).permit(:start_location, :end_location, :name, :total_distance)
+      params.require(:goal).permit(:start_location, :end_location, :name, :total_distance, :ajax_flag)
     end
   end
 end
