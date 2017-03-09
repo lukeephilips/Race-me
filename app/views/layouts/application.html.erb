@@ -17,21 +17,21 @@
           <ul id="nav-mobile" class="hide-on-med-and-down right">
             <% if current_user %>
               <% if current_user.token %>
-              <li style="color: black">Authenticated with Strava</li>
+              <li class="auth-status">Authenticated with Strava</li>
               <% else %>
               <li><%= link_to 'Sign into Strava', "https://www.strava.com/oauth/authorize?client_id=#{ENV['CLIENT_ID']}&response_type=code&redirect_uri=http#{ENV['REDIRECT_URI']}/token_exchange" %></li>
               <% end %>
-            <li><%= link_to 'View Runs', user_runs_path(current_user) %></li>
-            <li><%= link_to 'View Goals', user_goals_path(current_user.id) %></li>
+            <li><%= link_to 'Runs', user_runs_path(current_user) %></li>
+            <li><%= link_to 'Goals', user_goals_path(current_user.id) %></li>
             <li><%= link_to "Log out #{current_user.name}", destroy_user_session_path, method: 'delete' %></li>
             <% else %>
             <li><%= link_to 'Log In', new_user_session_path %>  </li>
             <% end %>
           </ul>
-          <ul id="nav-mobile" class="side-nav">
+          <ul id="slide-out" class="side-nav">
             <% if current_user %>
               <% if current_user.token %>
-              <li style="color: black">Authenticated with Strava</li>
+              <li class="auth-status">Authenticated with Strava</li>
               <% else %>
               <li><%= link_to 'Sign into Strava', "https://www.strava.com/oauth/authorize?client_id=#{ENV['CLIENT_ID']}&response_type=code&redirect_uri=http#{ENV['REDIRECT_URI']}/token_exchange" %></li>
               <% end %>
@@ -42,6 +42,7 @@
             <li><%= link_to 'Log In', new_user_session_path %>  </li>
             <% end %>
           </ul>
+          <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
       </div>
     </nav>

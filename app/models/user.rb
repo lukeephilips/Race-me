@@ -9,24 +9,8 @@ class User < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :name
 
-  # attr_accessor :client, :athlete, :activities
-
-  # def client
-  #   @client
-  #   # @client = Strava::Api::V3::Client.new(:access_token => ENV['ACCESS_TOKEN'])
-  #
-  #   # access_information = Strava::Api::V3::Auth.retrieve_access(ENV['CLIENT_ID'], ENV['CLIENT_SECRET'], 'code')
-  # end
-  # def athlete
-  #   @athlete
-  #   # @athlete ||= self.client.retrieve_current_athlete
-  # end
-  # def activities
-  #   @activities
-  #   # @activities ||= self.client.list_athlete_activities
-  # end
-
   def after_database_authentication
+    session[:token] = current_user.token
     puts "DB call to populate runs"
     if self.token
       @client = Strava::Api::V3::Client.new(:access_token => self.token)

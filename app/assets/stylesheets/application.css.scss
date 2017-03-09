@@ -40,7 +40,15 @@
    background-color: #2c3539;
     // background-image: url(image-path("arctic-min.jpg"));
   // background-image: image-url("http://blog.holimites.com/wp-content/uploads/2015/11/08SP-en0679.jpg");
-
+.auth-status{
+  color: black;
+}
+.side-nav{
+  background-color: black;
+  .auth-status{
+    color: darkred;
+  }
+}
 
  }
  .container{
@@ -58,7 +66,7 @@
   }
 }
 .instructions{
-  
+
 }
  .profile_small {
    width: 100px;

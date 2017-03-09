@@ -9,22 +9,16 @@
 
 </div>
 <div class="row card">
-  <div class="col s2">
-    <% if @athlete %>
-      <%= image_tag @athlete['profile_medium'], class: "profile_small circle" %>
-    <% end %>
-  </div>
   <div class="col s10">
     <h5 class="instructions">Create virtual goals on Google Maps and move along your virtual route each time you excercise with Strava. Make a solo run or challenge your friends!</h5><br>
     <% if !current_user.token %>
       <h5 class="instructions">First things first, login to your strava account in the navbar.</h5>
-    <% elsif current_user.runs.empty? %>
-      <h5 class="instructions">Looks like you don't have any runs on strava. No worries, you can manually <%= link_to "enter your runs", user_runs_path(current_user) %>.</h5>
-    <% elsif current_user.runs && current_user.races.empty? %>
+    <% elsif !@runs %>
+      <h5 class="instructions">Looks like you don't have any new runs on strava. No worries, you can manually <%= link_to "enter your runs", user_runs_path(current_user) %>.</h5>
+    <% elsif @runs && current_user.races.empty? %>
       <h5 class="instructions">Next up, <%= link_to "Create a goal", user_goals_path(current_user)%></h5>
-    <% elsif @runs.any? %>
+    <% elsif @runs %>
       <h5 class="instructions">Assign your unassigned runs to an active goal using the dropdown menu below to move along your virtual route</h5>
-      <% else %>
     <% end %>
   </div>
 </div>
