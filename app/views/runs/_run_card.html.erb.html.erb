@@ -14,8 +14,10 @@
                 <div class="progress">
                   <div class="progress-bar" style="width: <%= width =calc_percent(@user, run.goal) %>" id="<%= progress_color(width) %>"></div>
                 </div>
-            <% else %>
+            <% elsif run.user.id == current_user.id %>
               <%= render 'runs/selector', run: run %>
+            <% else %>
+              <p>Not yet assigned to a goal</p>
             <% end %>
           </div>
         </div>

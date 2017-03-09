@@ -21,9 +21,19 @@
  a {
     @extend .pink-text, .text-darken-4;
     &:hover{
-      font-weight: bold;
-      @extend .pink-text, .text-accent-4
+      text-decoration: underline;
+      @extend .pink-text, .text-accent-4;
     }
+  }
+  nav a, .btn {
+    @extend .white-text;
+    &:hover{
+    @extend .white-text;
+    text-decoration: none;
+    }
+  }
+  label {
+    @extend .black-text
   }
 
  body {

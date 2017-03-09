@@ -2,12 +2,12 @@ class GoalsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     if params[:search_term]
-      @goals = Goal.basic_search(params[:search_term])
+      @goals = @user.goals.basic_search(params[:search_term])
       respond_to do |format|
         format.js
       end
     else
-      @goals = Goal.all
+      @goals = @user.goals.all
       respond_to do |format|
         format.js
         format.html {render :index}
@@ -38,10 +38,9 @@ class GoalsController < ApplicationController
     @user = current_user
     @goal = Goal.new({name: user_name, start_location: user_start_location, end_location: user_end_location, start_latlng: user_start_latlng, end_latlng: user_end_latlng, total_distance: user_total_distance})
     @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
+
     if @goal.save
-
       @user.races.create(goal_id: @goal.id, progress: 0)
-
       flash_message = "You saved #{@goal.name}"
       if params[:opponents] != ''
         opponents = params[:opponents].split(", ")
