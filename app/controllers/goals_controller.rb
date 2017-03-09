@@ -62,7 +62,7 @@ class GoalsController < ApplicationController
           format.js
           format.html {redirect_to user_goal_path(current_user,@goal)}
         end
-        # redirect_to user_goal_path(current_user,@goal)
+        redirect_to user_goal_path(current_user,@goal)
       end
     else
       flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join
