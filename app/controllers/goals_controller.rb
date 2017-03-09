@@ -59,12 +59,13 @@ class GoalsController < ApplicationController
             flash_message += "\n" + stripped_opponent + " does not exist"
           end
         end
-        flash[:notice] = flash_message
-        respond_to do |format|
-          format.js
-          format.html {redirect_to user_goal_path(current_user,@goal)}
-        end
+        # respond_to do |format|
+        #   format.js
+        #   format.html {redirect_to user_goal_path(current_user,@goal)}
+        # end
       end
+      flash[:notice] = flash_message
+      redirect_to user_goal_path(current_user,@goal)
     else
       flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join
       render :new

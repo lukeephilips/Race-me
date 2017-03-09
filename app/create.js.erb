@@ -1,3 +1,5 @@
+// Goal#Create AJAX - should be moved into views/goals. Makes adding a goal from Run#form stay on the same page and update the select menu after completing, but it also makes creating a goal from goal#form continue to show the form after completing
+
 $('.goal-modal').remove();
 $('#run_goal_id').append('<option value="<%= @goal.id %>"><%= @goal.name %></option>');
 $('body').append(`<div class="alert alert-notice">
