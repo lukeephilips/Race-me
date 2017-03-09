@@ -1,5 +1,5 @@
 <% @runs.order(date: :desc).each do |run| %>
-    <div class="col s4">
+    <div class="col l4 m6 s12">
       <div class="card grey lighten-4">
         <div class="card-content center black-text">
           <span class="card-title">Distance: <%= convert_meters_to_miles(run.total_distance, 1) %> miles <br> Date: <%= display_date(run.date) %></span>
