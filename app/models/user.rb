@@ -10,7 +10,6 @@ class User < ApplicationRecord
   validates_uniqueness_of :name
 
   def after_database_authentication
-    session[:token] = current_user.token
     puts "DB call to populate runs"
     if self.token
       @client = Strava::Api::V3::Client.new(:access_token => self.token)

@@ -6,11 +6,16 @@
   </div>
 </div> -->
 <div class="row">
-
+  <div class="card">
+    <div class="card-image">
+      <%= image_tag "http://runthealps.com/wp-content/uploads/2013/04/run_31.jpg" %>
+      <span class="card-title">Create virtual goals on Google Maps and move along your route each time you excercise.</span>
+    </div>
+  </div>
 </div>
 <div class="row card">
   <div class="col s10">
-    <h5 class="instructions">Create virtual goals on Google Maps and move along your virtual route each time you excercise with Strava. Make a solo run or challenge your friends!</h5><br>
+    <h5 class="instructions"></h5><br>
     <% if !current_user.token %>
       <h5 class="instructions">First things first, login to your strava account in the navbar.</h5>
     <% elsif !@runs %>
