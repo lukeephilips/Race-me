@@ -1,7 +1,6 @@
 <div class=" row map-container">
   <div class="col s8" id="map">
   </div>
-  <div  class="col s4" id="directionsPanel" style="float:right;width:30%;height 100%">
   </div>
 </div>
 
@@ -15,7 +14,7 @@ function initMap() {
      });
      calculateAndDisplayRoute(directionsService, directionsDisplay);
      directionsDisplay.setMap(map);
-    //  directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+     directionsDisplay.setPanel(document.getElementById('directions'));
 
    }
    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -26,9 +25,26 @@ function initMap() {
      }, function(response, status) {
        if (status === 'OK') {
          directionsDisplay.setDirections(response);
+
+         var magicBox = createDistanceArray(response);
+         var nearestPoint = magicBox.find(findPoint).lat_lng;
+         debugger;
+
        } else {
          window.alert('Directions request failed due to ' + status);
        }
      });
+   }
+   function createDistanceArray(response){
+     var magicArray = [];
+     var distanceFromOrigin = 0;
+     response.routes[0].legs[0].steps.map(function(step){
+       distanceFromOrigin += step.distance.value;
+       magicArray.push({"dist": step.distance.value, "lat_lng": [step.lat_lngs[0].lat(),step.lat_lngs[0].lng()], "total_dist": distanceFromOrigin});
+     })
+       return magicArray
+   }
+   function findPoint(step){
+    return step.total_dist >= <%= @user.races.where(goal_id: @goal.id).first.progress %>
    }
 </script>
