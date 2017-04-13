@@ -88,13 +88,12 @@ top: 8px;
    height: 160px;
  }
  .alert{
-   background-color: $secondary-color;
+   background-color: black;
    position: absolute;
    top: 65px;
    right:  80px;
    border: 2px solid $primary-color;
-   z-index: 10000000000000;
-  //  height: 50px;
+   z-index: 10;
    width: 600px;
    animation-name: slider;
    animation-duration: .5s;
@@ -114,13 +113,10 @@ top: 8px;
    }
  }
  .alert-notice{
-   background-color: lightgreen;
-   color: black;
+   color: darkgreen;
  }
  .alert-alert{
-
-   background-color: #FFB5B5;
-   color: black;
+   color: #FFB5B5;
  }
 
  .nav-margin {

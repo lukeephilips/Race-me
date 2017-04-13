@@ -7,44 +7,51 @@
 
 <script>
 function initMap() {
-     var directionsService = new google.maps.DirectionsService;
-     var directionsDisplay = new google.maps.DirectionsRenderer;
-     var map = new google.maps.Map(document.getElementById('map'), {
-       zoom: 7
-     });
-     calculateAndDisplayRoute(directionsService, directionsDisplay);
-     directionsDisplay.setMap(map);
-     directionsDisplay.setPanel(document.getElementById('directions'));
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 7
+  });
 
-   }
-   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-     directionsService.route({
-       origin: '<%= @user_origin %>',
-       destination: '<%= @user_destination %>',
-       travelMode: 'WALKING'
-     }, function(response, status) {
-       if (status === 'OK') {
-         directionsDisplay.setDirections(response);
+  calculateAndDisplayRoute(directionsService, directionsDisplay);
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('directions'));
+}
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  directionsService.route({
+    origin: '<%= @user_origin %>',
+    destination: '<%= @user_destination %>',
+    travelMode: 'WALKING'
 
-         var magicBox = createDistanceArray(response);
-         var nearestPoint = magicBox.find(findPoint).lat_lng;
-         debugger;
-
-       } else {
+  }, function(response, status) {
+    if (status === 'OK') {
+      directionsDisplay.setDirections(response);
+      var turnByTurnData = createDistanceArray(response);
+      setMarker(turnByTurnData);
+    } else {
          window.alert('Directions request failed due to ' + status);
-       }
-     });
-   }
-   function createDistanceArray(response){
-     var magicArray = [];
-     var distanceFromOrigin = 0;
-     response.routes[0].legs[0].steps.map(function(step){
-       distanceFromOrigin += step.distance.value;
-       magicArray.push({"dist": step.distance.value, "lat_lng": [step.lat_lngs[0].lat(),step.lat_lngs[0].lng()], "total_dist": distanceFromOrigin});
-     })
-       return magicArray
-   }
-   function findPoint(step){
-    return step.total_dist >= <%= @user.races.where(goal_id: @goal.id).first.progress %>
-   }
+    }
+  });
+}
+function createDistanceArray(response){
+  var turnByturnDistances = [];
+  var distanceFromOrigin = 0;
+  response.routes[0].legs[0].steps.map(function(step){
+    distanceFromOrigin += step.distance.value;
+    turnByturnDistances.push({"dist": step.distance.value, "lat_lng": {lat: step.lat_lngs[0].lat(), lng: step.lat_lngs[0].lng()}, "total_dist": distanceFromOrigin});
+  })
+  return turnByturnDistances
+}
+function findPoint(step){
+  return step.total_dist >= <%= @user.races.where(goal_id: @goal.id).first.progress %>
+}
+function setMarker(turnByTurnData){
+  nearestPoint = turnByTurnData.find(findPoint).lat_lng;
+  var marker = new google.maps.Marker({
+    position: nearestPoint,
+    map: map,
+    title: 'Hello World!'
+  });
+
+}
 </script>
