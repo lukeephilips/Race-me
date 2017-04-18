@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     # elsif @runs
     #   flash[:notice] = "Assign your runs to an active goal using the dropdown menus to move along your virtual route"
     # end
-    
+
     # if current_user.token
     #   @client = Strava::Api::V3::Client.new(:access_token => current_user.token)
     #   @athlete ||= @client.retrieve_current_athlete

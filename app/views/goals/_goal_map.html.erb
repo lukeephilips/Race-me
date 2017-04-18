@@ -25,33 +25,52 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
   }, function(response, status) {
     if (status === 'OK') {
+
       directionsDisplay.setDirections(response);
+
       var turnByTurnData = createDistanceArray(response);
       setMarker(turnByTurnData);
+
     } else {
          window.alert('Directions request failed due to ' + status);
     }
   });
 }
+
 function createDistanceArray(response){
   var turnByturnDistances = [];
   var distanceFromOrigin = 0;
   response.routes[0].legs[0].steps.map(function(step){
     distanceFromOrigin += step.distance.value;
-    turnByturnDistances.push({"dist": step.distance.value, "lat_lng": {lat: step.lat_lngs[0].lat(), lng: step.lat_lngs[0].lng()}, "total_dist": distanceFromOrigin});
+    turnByturnDistances.push({
+      "dist": step.distance.value,
+      "lat_lng": {lat: step.lat_lngs[0].lat(), lng: step.lat_lngs[0].lng()},
+      "total_dist": distanceFromOrigin});
   })
   return turnByturnDistances
 }
-function findPoint(step){
-  return step.total_dist >= <%= @user.races.where(goal_id: @goal.id).first.progress %>
-}
 function setMarker(turnByTurnData){
-  nearestPoint = turnByTurnData.find(findPoint).lat_lng;
+  var userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>
+
+  if (userProgress >= _.last(turnByTurnData)['total_dist']){
+  var nearestPoint = _.last(turnByTurnData)['lat_lng']
+  }
+  else {
+    var nearestPoint = turnByTurnData.find(findPoint).lat_lng;
+  }
+
+
   var marker = new google.maps.Marker({
     position: nearestPoint,
+    icon: "<%= image_path ('turtle.png') %>",
     map: map,
     title: 'Hello World!'
   });
 
+}
+function findPoint(step){
+  var userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>;
+
+  return step.total_dist >= userProgress
 }
 </script>

@@ -18,6 +18,7 @@ class GoalsController < ApplicationController
   end
 
   def show
+    byebug
     @goal = Goal.find(params[:id])
     @user = current_user
     @user_origin = @goal['start_location']

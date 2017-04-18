@@ -40,6 +40,7 @@ gem 'textacular'
 gem 'strava-api-v3'
 gem 'gmaps4rails'
 gem 'rest-client'
+gem 'underscore-rails'
 
 
 group :development, :test do
