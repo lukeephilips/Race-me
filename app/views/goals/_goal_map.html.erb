@@ -50,14 +50,16 @@ function createDistanceArray(response){
   return turnByturnDistances
 }
 function setMarker(turnByTurnData){
-  var userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>
 
-  if (userProgress >= _.last(turnByTurnData)['total_dist']){
-  var nearestPoint = _.last(turnByTurnData)['lat_lng']
-  }
-  else {
-    var nearestPoint = turnByTurnData.find(findPoint).lat_lng;
-  }
+  var userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>;
+
+
+    if (userProgress >= _.last(turnByTurnData)['total_dist']){
+      var nearestPoint = _.last(turnByTurnData)['lat_lng']
+    }
+    else {
+      var nearestPoint = turnByTurnData.find(findPoint).lat_lng;
+    }
 
 
   var marker = new google.maps.Marker({
@@ -69,7 +71,7 @@ function setMarker(turnByTurnData){
 
 }
 function findPoint(step){
-  var userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>;
+  userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>;
 
   return step.total_dist >= userProgress
 }

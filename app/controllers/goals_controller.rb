@@ -18,11 +18,16 @@ class GoalsController < ApplicationController
   end
 
   def show
-    byebug
     @goal = Goal.find(params[:id])
     @user = current_user
     @user_origin = @goal['start_location']
     @user_destination = @goal['end_location']
+
+
+    @users_races_hash = []
+    @goal.users.each_with_index do |user, index|
+      @users_races_hash.push([user.races.where(goal_id: @goal.id).first.progress, index])
+    end
   end
 
   def new
