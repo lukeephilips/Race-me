@@ -8,7 +8,7 @@
 <script>
 function initMap() {
   var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
+  var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 7
   });
@@ -62,7 +62,7 @@ function setMarker(turnByTurnData){
     var marker = new google.maps.Marker({
       position: nearestPoint[0],
       map: map,
-      title: nearestPoint[1]
+      label: nearestPoint[1][0]
     });
   })
 }
