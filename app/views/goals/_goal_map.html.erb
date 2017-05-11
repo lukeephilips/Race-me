@@ -28,7 +28,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
       directionsDisplay.setDirections(response);
 
-      var turnByTurnData = createDistanceArray(response);
+      turnByTurnData = createDistanceArray(response);
       setMarker(turnByTurnData);
 
     } else {
@@ -49,30 +49,41 @@ function createDistanceArray(response){
   })
   return turnByturnDistances
 }
+
 function setMarker(turnByTurnData){
 
-  var userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>;
+  // var userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>;
+  // var nearestPoint = setNearestPoint(userProgress);
 
+  var usersProgressArray = <%= @users_races_hash.to_json.html_safe %>;
+  var nearestPointsArray = usersProgressArray.map(setNearestPoint);
 
-    if (userProgress >= _.last(turnByTurnData)['total_dist']){
-      var nearestPoint = _.last(turnByTurnData)['lat_lng']
-    }
-    else {
-      var nearestPoint = turnByTurnData.find(findPoint).lat_lng;
-    }
-
-
-  var marker = new google.maps.Marker({
-    position: nearestPoint,
-    icon: "<%= image_path ('turtle.png') %>",
-    map: map,
-    title: 'Hello World!'
-  });
-
+  nearestPointsArray.forEach(function mapify(nearestPoint) {
+    var marker = new google.maps.Marker({
+      position: nearestPoint[0],
+      map: map,
+      title: nearestPoint[1]
+    });
+  })
 }
-function findPoint(step){
-  userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>;
+// function findPoint(step){
+//   debugger
+//   userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>;
+//
+//   return step.total_dist >= userProgress
+// }
 
-  return step.total_dist >= userProgress
-}
+function setNearestPoint(userProgress){
+  if (userProgress[0] >= _.last(turnByTurnData)['total_dist']){
+    var nearestPoint = _.last(turnByTurnData)['lat_lng']
+  }
+  else {
+    var nearestPoint = turnByTurnData.find(function findPoint(step){
+      var progressAtStep = userProgress[0];
+
+      return step.total_dist >= progressAtStep
+    }).lat_lng;
+  }
+  return [nearestPoint, userProgress[1]];
+};
 </script>

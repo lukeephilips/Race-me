@@ -26,7 +26,7 @@ class GoalsController < ApplicationController
 
     @users_races_hash = []
     @goal.users.each_with_index do |user, index|
-      @users_races_hash.push([user.races.where(goal_id: @goal.id).first.progress, index])
+      @users_races_hash.push([user.races.where(goal_id: @goal.id).first.progress, user.name])
     end
   end
 
