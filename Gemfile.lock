@@ -51,6 +51,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cliver (0.3.2)
@@ -278,6 +282,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   capybara
+  chosen-rails
   coffee-rails (~> 4.2)
   database_cleaner
   devise

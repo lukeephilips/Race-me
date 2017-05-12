@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+    @user = current_user
     if current_user.goals.any?
       @goals ||= current_user.goals
     end

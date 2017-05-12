@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require chosen
  */
  @import "materialize/components/color";
  $primary-color: color("blue-grey", "base") !default;
