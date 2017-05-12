@@ -5,7 +5,7 @@ class HomeController < ApplicationController
       @goals ||= current_user.goals
     end
     if current_user.runs.any?
-      @runs ||= current_user.runs.where(goal_id: nil)
+      @runs ||= current_user.runs.where(goal_id: nil).paginate(:page => params[:page], :per_page => 6)
     end
     # if !current_user.token
     #   flash[:notice] = "Welcome! First things first, login to your strava account in the navbar"

@@ -1,7 +1,7 @@
 class RunsController < ApplicationController
   def index
     @user ||= User.find(params[:user_id])
-    @runs ||= @user.runs
+    @runs ||= @user.runs.paginate(:page => params[:page], :per_page => 6)
     @goals ||= @user.goals
   end
 

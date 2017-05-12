@@ -42,6 +42,7 @@ gem 'gmaps4rails'
 gem 'rest-client'
 gem 'underscore-rails'
 gem 'chosen-rails'
+gem 'will_paginate'
 
 
 group :development, :test do

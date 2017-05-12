@@ -4,7 +4,7 @@ class GoalsController < ApplicationController
     if params[:search_term]
       @goals = @user.goals.basic_search(params[:search_term])
     else
-      @goals = @user.goals.all
+      @goals = @user.goals.all.paginate(:page => params[:page], :per_page => 4)
     end
 
     respond_to do |format|
