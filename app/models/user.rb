@@ -19,13 +19,25 @@ class User < ApplicationRecord
 
       if self.runs.empty?
         @activities.first(20).each do |activity|
-          self.runs.create(start_latlng: activity['start_latlng'], end_latlng: activity['end_latlng'], total_distance: activity['distance'], total_time: activity['elapsed_time'], travel_method: activity['type'], strava_id: activity['id'], date: Time.parse(activity['start_date_local']))
-          puts "RUNS CREATED"
+          self.runs.create(start_latlng: activity['start_latlng'],
+                          end_latlng: activity['end_latlng'],
+                          total_distance: activity['distance'],
+                          total_time: activity['elapsed_time'],
+                          travel_method: activity['type'],
+                          strava_id: activity['id'],
+                          date: Time.parse(activity['start_date_local']))
+          puts "RUN CREATED"
         end
       else
         @activities.first(20).each do |activity|
           if !self.runs.where(strava_id: activity['id']).exists?
-            self.runs.create(start_latlng: activity['start_latlng'], end_latlng: activity['end_latlng'], total_distance: activity['distance'], total_time: activity['elapsed_time'], travel_method: activity['type'], strava_id: activity['id'], date: Time.parse(activity['start_date_local']))
+            self.runs.create(start_latlng: activity['start_latlng'],
+                            end_latlng: activity['end_latlng'],
+                            total_distance: activity['distance'],
+                            total_time: activity['elapsed_time'],
+                            travel_method: activity['type'],
+                            strava_id: activity['id'],
+                            date: Time.parse(activity['start_date_local']))
             puts "RUN #{activity['id']} CREATED"
           end
         end
