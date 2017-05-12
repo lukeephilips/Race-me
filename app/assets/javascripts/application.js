@@ -16,7 +16,6 @@
 //= require_tree .
 //= require materialize-sprockets
 //= require underscore
-//= require chosen-jquery
 
 $(document).ready(function(){
   $(".button-collapse").sideNav();
