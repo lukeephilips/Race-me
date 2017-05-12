@@ -10,11 +10,13 @@
     <% end %>
   </div>
 </div>
-<div class="row">
-  <div class="col m4 s12">
-    <%= link_to "Add a Goal", new_user_goal_path(@user), class: 'btn' %>
+<% if @user == current_user %>
+  <div class="row">
+    <div class="col m4 s12">
+      <%= link_to "Add a Goal", new_user_goal_path(@user), class: 'btn' %>
+    </div>
   </div>
-</div>
+<% end %>
 <div class="row">
   <div class="goals">
     <%= render 'goal' %>

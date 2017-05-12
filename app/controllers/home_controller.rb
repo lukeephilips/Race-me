@@ -1,13 +1,12 @@
 class HomeController < ApplicationController
   def index
-    @user ||= current_user
-    if @user.goals.any?
-      @goals ||= @user.goals
+    if current_user.goals.any?
+      @goals ||= current_user.goals
     end
-    if @user.runs.any?
+    if current_user.runs.any?
       @runs ||= current_user.runs.where(goal_id: nil)
     end
-    # if !@user.token
+    # if !current_user.token
     #   flash[:notice] = "Welcome! First things first, login to your strava account in the navbar"
     # elsif !@runs
     #   flash[:notice] = "Looks like you don't have any new runs on strava. Go to Runs in the navbar to manually enter one"

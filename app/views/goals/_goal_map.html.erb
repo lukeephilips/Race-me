@@ -19,8 +19,8 @@ function initMap() {
 }
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   directionsService.route({
-    origin: '<%= @user_origin %>',
-    destination: '<%= @user_destination %>',
+    origin: '<%= @goal['start_location'] %>',
+    destination: '<%= @goal['end_location'] %>',
     travelMode: 'WALKING'
 
   }, function(response, status) {
@@ -52,9 +52,6 @@ function createDistanceArray(response){
 
 function setMarker(turnByTurnData){
 
-  // var userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>;
-  // var nearestPoint = setNearestPoint(userProgress);
-
   var usersProgressArray = <%= @users_races_hash.to_json.html_safe %>;
   var nearestPointsArray = usersProgressArray.map(setNearestPoint);
 
@@ -66,24 +63,18 @@ function setMarker(turnByTurnData){
     });
   })
 }
-// function findPoint(step){
-//   debugger
-//   userProgress = <%= @user.races.where(goal_id: @goal.id).first.progress %>;
-//
-//   return step.total_dist >= userProgress
-// }
 
 function setNearestPoint(userProgress){
-  if (userProgress[0] >= _.last(turnByTurnData)['total_dist']){
+  if (userProgress['distance'] >= _.last(turnByTurnData)['total_dist']){
     var nearestPoint = _.last(turnByTurnData)['lat_lng']
   }
   else {
     var nearestPoint = turnByTurnData.find(function findPoint(step){
-      var progressAtStep = userProgress[0];
+      var progressAtStep = userProgress['distance'];
 
       return step.total_dist >= progressAtStep
     }).lat_lng;
   }
-  return [nearestPoint, userProgress[1]];
+  return [nearestPoint, userProgress['name']];
 };
 </script>

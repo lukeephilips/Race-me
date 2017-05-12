@@ -3,7 +3,7 @@
   <div class="card grey lighten-4">
     <div class="card-content black-text">
       <h3>Add a new goal</h3>
-      <%= form_for [@user, @goal] do |f| %>
+      <%= form_for [current_user, @goal] do |f| %>
         <%= f.label :name %>
         <%= f.text_field :name %>
 

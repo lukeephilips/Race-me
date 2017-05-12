@@ -1,56 +1,46 @@
 class GoalsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
-
-# search function
     if params[:search_term]
       @goals = @user.goals.basic_search(params[:search_term])
-      respond_to do |format|
-        format.js
-      end
     else
       @goals = @user.goals.all
-      respond_to do |format|
-        format.js
-        format.html {render :index}
-      end
+    end
+
+    respond_to do |format|
+      format.js
+      format.html {render :index}
     end
   end
 
   def show
     @goal = Goal.find(params[:id])
     @user = current_user
-    @user_origin = @goal['start_location']
-    @user_destination = @goal['end_location']
 
-
-    @users_races_hash = []
-    @goal.users.each_with_index do |user, index|
-      @users_races_hash.push([user.races.where(goal_id: @goal.id).first.progress, user.name])
+    @users_races_hash = @goal.users.map do |user|
+      Hash["name" => user.name, "distance" => user.races.where(goal_id: @goal.id).first.progress]
     end
   end
 
   def new
-    @user = current_user
     @goal = Goal.new
   end
 
   def create
 # collect user input and make calls to GMaps geotagging
-    user_name = goal_params[:name]
-    user_start_location = goal_params[:start_location]
-    user_end_location = goal_params[:end_location]
-    user_start_latlng = Geocoder.get_geo(user_start_location)
-    user_end_latlng = Geocoder.get_geo(user_end_location)
-    user_total_distance = Geocoder.get_distance(user_start_latlng, user_end_latlng)['rows'][0]['elements'][0]['distance']['value']
+    user_total_distance = Geocoder.get_distance(Geocoder.get_geo(goal_params[:start_location]), Geocoder.get_geo(goal_params[:end_location]))['rows'][0]['elements'][0]['distance']['value']
 
-    @user = current_user
-    @goal = Goal.new({name: user_name, start_location: user_start_location, end_location: user_end_location, start_latlng: user_start_latlng, end_latlng: user_end_latlng, total_distance: user_total_distance})
+    @goal = Goal.new({name: goal_params[:name],
+                      start_location: goal_params[:start_location],
+                      end_location: goal_params[:end_location],
+                      start_latlng: Geocoder.get_geo(goal_params[:start_location]),
+                      end_latlng: Geocoder.get_geo(goal_params[:end_location]),
+                      total_distance: user_total_distance})
     @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
 
     if @goal.save
 # create user_goal join
-      @user.races.create(goal_id: @goal.id, progress: 0)
+      current_user.races.create(goal_id: @goal.id, progress: 0)
       flash_message = "You saved #{@goal.name}"
       if params[:opponents] != ''
 # invite opponents, TODO: send invite email
@@ -79,14 +69,12 @@ class GoalsController < ApplicationController
   end
 
   def edit
-    @user = current_user
     @goal = Goal.find(params[:id])
-    @goals = @user.goals.collect{|goal| [goal.name, goal.id]}
+    @goals = current_user.goals.collect{|goal| [goal.name, goal.id]}
 
   end
 
   def update
-    @user = current_user
     @goal = Goal.find(params[:id])
     if @goal.update(goal_params)
       flash[:notice] = "You edited #{@goal.name}"
@@ -98,7 +86,6 @@ class GoalsController < ApplicationController
   end
 
   def destroy
-    @user = current_user
     @goal = Goal.find(params[:id])
     @goal.destroy
     flash[:notice] = "You deleted #{@goal.name}"
