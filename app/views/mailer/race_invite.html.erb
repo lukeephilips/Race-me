@@ -1,8 +1,11 @@
 <h1><%= @sender.name %> wants to start a race</h1>
 
 <p>
-  Hi <%= @recipient.name %>, You've been invited to join your friend <%= @sender.name %>'s virtual race: <%= @goal.name %> on RaceMe.
+  Hi <%= @recipient.try(:name) %>, You've been invited to join your friend <%= @sender.name %>'s virtual race: <%= @goal.name %> on RaceMe.
 <ul>
   <li>Start: <%= @goal.start_location %></li>
   <li>End: <%= @goal.end_location %></li>
 </ul>
+</p>
+  <a href="http://localhost:3000">Login</a>
+</p>
