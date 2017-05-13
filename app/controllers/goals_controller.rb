@@ -5,7 +5,7 @@ class GoalsController < ApplicationController
 
       @goals = @user.goals.basic_search(params[:search_term])
     else
-      @goals = @user.goals.all.paginate(:page => params[:page], :per_page => 4)
+      @goals = @user.goals.all.paginate(:page => params[:page], :per_page => 6)
     end
 
     respond_to do |format|
@@ -75,6 +75,13 @@ class GoalsController < ApplicationController
 
   def destroy
     @goal = Goal.find(params[:id])
+
+    if @goal.users.count > 1
+      @goal.users.delete(current_user)
+    else
+      @goal.destroy
+    end
+
     @goal.destroy
     flash[:notice] = "You deleted #{@goal.name}"
     redirect_to user_goals_path(current_user)

@@ -7,7 +7,7 @@
         <p class="">Starting Location: <%= goal.start_location %></p>
         <p class="">Ending Location: <%= goal.end_location %></p>
         <br>
-        <p><%= link_to "View Details", user_goal_path(current_user.id, goal.id) %></p>
+        <p><%= link_to "View Details", user_goal_path(current_user.id, goal.id) %> &nbsp <%= link_to "Delete", user_goal_path(current_user.id, goal.id),:data => {:confirm => "Are you sure?", :method => "delete"} %></p>
       </div>
       <div class="card-action">
         <% goal.users.each do |user| %>
