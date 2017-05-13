@@ -1,34 +1,11 @@
-<div class="row">
-  <div class="card">
-    <div class="card-image">
-      <%= image_tag "http://runthealps.com/wp-content/uploads/2013/04/run_31.jpg" %>
-      <span class="card-title super-title">Create virtual goals on Google Maps and move along your route each time you excercise.</span>
-    </div>
+<% if @runs %>
+  <div class="row">
+    <h3 class="center">Your new runs</h3>
+    <%= render 'runs/run_card.html.erb' %>
   </div>
-</div>
-<div class="row card">
-  <div class="col s10">
-    <h5 class="instructions"></h5><br>
-    <% if !current_user.token %>
-      <h5 class="instructions">First things first, login to your strava account in the navbar.</h5>
-    <% elsif !@runs %>
-      <h5 class="instructions">Looks like you don't have any new runs on strava. No worries, you can manually <%= link_to "enter your runs", user_runs_path(current_user) %>.</h5>
-    <% elsif @runs && current_user.races.empty? %>
-      <h5 class="instructions">Next up, <%= link_to "Create a goal", user_goals_path(current_user)%></h5>
-    <% elsif @runs %>
-      <h5 class="instructions">Assign your unassigned runs to an active goal using the dropdown menu below to move along your virtual route</h5>
-    <% end %>
+  <div class="row">
+    <%= will_paginate @runs %>
   </div>
-</div>
-
-  <% if @runs %>
-    <div class="row">
-      <h3 class="center">Unassigned Runs</h3>
-      <%= render 'runs/run_card.html.erb' %>
-    </div>
-    <div class="row">
-      <%= will_paginate @runs %>
-    </div>
-  <% else %>
-    <p>You have no unassigned runs.</p>
-  <% end %>
+<% else %>
+  <p>You have no unassigned runs.</p>
+<% end %>

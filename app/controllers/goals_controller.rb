@@ -15,7 +15,6 @@ class GoalsController < ApplicationController
 
   def show
     @goal = Goal.find(params[:id])
-    @user = current_user
 
     @users_races_hash = @goal.users.map do |user|
       Hash["name" => user.name, "distance" => user.races.where(goal_id: @goal.id).first.progress]

@@ -1,21 +1,19 @@
 class HomeController < ApplicationController
   def index
     @user = current_user
-    if current_user.goals.any?
-      @goals ||= current_user.goals
+    if @user.runs.any?
+      @runs ||= @user.runs.where(goal_id: nil).paginate(:page => params[:page], :per_page => 6)
     end
-    if current_user.runs.any?
-      @runs ||= current_user.runs.where(goal_id: nil).paginate(:page => params[:page], :per_page => 6)
+
+    if !@user.token
+      flash[:notice] = "Welcome! First things first, login to your strava account in the navbar"
+    elsif !@user.runs
+      flash[:notice] = "Looks like you don't have any new runs on strava. Go to Runs in the navbar to manually enter one"
+    elsif @runs && @user.races.empty?
+      flash[:notice] = "Next up, create a Goal"
+    elsif @runs
+      flash[:notice] = "Assign your new runs to an active goal to move along your virtual route"
     end
-    # if !current_user.token
-    #   flash[:notice] = "Welcome! First things first, login to your strava account in the navbar"
-    # elsif !@runs
-    #   flash[:notice] = "Looks like you don't have any new runs on strava. Go to Runs in the navbar to manually enter one"
-    # elsif @runs && current_user.races.empty?
-    #   flash[:notice] = "Next up, create a Goal"
-    # elsif @runs
-    #   flash[:notice] = "Assign your runs to an active goal using the dropdown menus to move along your virtual route"
-    # end
 
     # if current_user.token
     #   @client = Strava::Api::V3::Client.new(:access_token => current_user.token)

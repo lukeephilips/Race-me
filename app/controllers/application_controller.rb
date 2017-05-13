@@ -1,9 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+
   def current_user
-    @current_user ||= super && User.includes(:goals, :runs).find(@current_user.id)
+    @current_user ||= super && User.includes(:goals, :runs, :races).find(@current_user.id)
   end
+
   def token_exchange
     code = params['code']
     access_information = Strava::Api::V3::Auth.retrieve_access(ENV['CLIENT_ID'], ENV['CLIENT_SECRET'], code)
@@ -17,6 +19,7 @@ class ApplicationController < ActionController::Base
     current_user.update({token: access_token, profile_picture: profile_picture})
 
     if current_user.token && current_user.runs.empty?
+      puts "* CONTROLLER * DB CALL"
       @client = Strava::Api::V3::Client.new(:access_token => current_user.token)
       @activities ||= @client.list_athlete_activities
 

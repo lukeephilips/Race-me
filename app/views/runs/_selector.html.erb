@@ -1,6 +1,6 @@
 <%= form_for [@user, run] do |f| %>
     <%= f.label "Select a goal to assign these miles" %>
-    <%= f.select(:goal_id, @goals.collect{|goal| [goal.name, goal.id]}) %>
+    <%= f.select(:goal_id, @user.goals.collect{|goal| [goal.name, goal.id]}) %>
 <% end %>
 
 <script type="text/javascript">

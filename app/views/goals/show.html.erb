@@ -1,10 +1,7 @@
 <div class="col s12">
   <div class="card">
-    <div class="card-image">
-      <img src="http://lifecdn.dailyburn.com/life/wp-content/uploads/2013/08/Running-Form_1.jpg">
-      <span class="card-title"><%= @goal.name %></span>
-    </div>
     <div class="card-content">
+      <span class="card-title"><%= @goal.name %></span>
       <div class="row">
         <div class="col s4">
           <p class="">Total Distance: <%= convert_meters_to_miles(@goal.total_distance, 1) %> miles</p>

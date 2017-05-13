@@ -18,7 +18,7 @@
 
 
           <%= f.label :goal_id %>
-          <%= f.select :goal_id, @goals, id: 'run-select'  %>
+          <%= f.select :goal_id, @user.goals.collect{|goal| [goal.name, goal.id]}, id: 'run-select'  %>
           <%= f.submit class: 'btn' %>
         <% end %>
       </div>
