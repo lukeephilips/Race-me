@@ -26,7 +26,7 @@ class GoalsController < ApplicationController
   end
 
   def create
-# collect user input and make calls to GMaps geotagging
+    # collect user input and make calls to GMaps geotagging
     user_total_distance = Geocoder.get_distance(Geocoder.get_geo(goal_params[:start_location]), Geocoder.get_geo(goal_params[:end_location]))['rows'][0]['elements'][0]['distance']['value']
 
     @goal = Goal.new({name: goal_params[:name],
@@ -38,28 +38,16 @@ class GoalsController < ApplicationController
     @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
 
     if @goal.save
-# create user_goal join
+      # create user_goal join
+
       current_user.races.create(goal_id: @goal.id, progress: 0)
-      flash_message = "You saved #{@goal.name}"
+      @flash_message = "You saved #{@goal.name}"
+
       if params[:opponents] != ''
-# invite opponents, TODO: send invite email
-        opponents = params[:opponents].split(", ")
-        opponents.each do |invited_opponent|
-          stripped_opponent = invited_opponent.strip
-          if User.exists?(email: stripped_opponent)
-            invited_user = User.find_by(email: stripped_opponent)
-            invited_user.races.create(user_id: invited_user.id, goal_id: @goal.id, progress: 0)
-            flash_message += "\n"+"and invited " + invited_user.email
-          else
-            flash_message += "\n" + stripped_opponent + " does not exist"
-          end
-        end
-        # respond_to do |format|
-        #   format.js
-        #   format.html {redirect_to user_goal_path(current_user,@goal)}
-        # end
+        invite_opponents(params[:opponents].split(", "))
       end
-      flash[:notice] = flash_message
+
+      flash[:notice] = @flash_message
       redirect_to user_goal_path(current_user,@goal)
     else
       flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join
@@ -97,6 +85,19 @@ class GoalsController < ApplicationController
     if params[:search_term]
     else
       params.require(:goal).permit(:start_location, :end_location, :name, :total_distance, :ajax_flag)
+    end
+  end
+
+  def invite_opponents(opponents)
+    opponents.each do |invited_opponent|
+      stripped_opponent = invited_opponent.strip
+      if User.exists?(email: stripped_opponent)
+        invited_user = User.find_by(email: stripped_opponent)
+        invited_user.races.create(user_id: invited_user.id, goal_id: @goal.id, progress: 0)
+        @flash_message += "\n"+"and invited " + invited_user.email
+      else
+        @flash_message += "\n" + stripped_opponent + " does not exist"
+      end
     end
   end
 end
