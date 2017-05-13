@@ -2,6 +2,7 @@ class GoalsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     if params[:search_term]
+
       @goals = @user.goals.basic_search(params[:search_term])
     else
       @goals = @user.goals.all.paginate(:page => params[:page], :per_page => 4)
@@ -91,9 +92,12 @@ class GoalsController < ApplicationController
   def invite_opponents(opponents)
     opponents.each do |invited_opponent|
       stripped_opponent = invited_opponent.strip
+
       if User.exists?(email: stripped_opponent)
         invited_user = User.find_by(email: stripped_opponent)
         invited_user.races.create(user_id: invited_user.id, goal_id: @goal.id, progress: 0)
+        byebug
+        Mailer.race_invite(current_user, invited_user, @goal).deliver
         @flash_message += "\n"+"and invited " + invited_user.email
       else
         @flash_message += "\n" + stripped_opponent + " does not exist"

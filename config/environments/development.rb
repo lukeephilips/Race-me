@@ -26,6 +26,18 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Mailgun settings
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  :authentication => :plain,
+  :address => "smtp.mailgun.org",
+  :port => 587,
+  :domain => "sandbox051199645c3d467f9ac453945708305b.mailgun.org",
+  :user_name => "postmaster@sandbox051199645c3d467f9ac453945708305b.mailgun.org",
+  :password => "0e1134d2e867fe34755a3f5cc23885c0"
+  }
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
