@@ -42,4 +42,15 @@ class User < ApplicationRecord
       date: Time.parse(activity['start_date_local'])
     )
   end
+  def walkthrough
+    if !token?
+      "Welcome! First things first, login to your strava account in the navbar"
+    elsif runs.empty?
+      "Looks like you don't have any new runs on strava. Go to Runs in the navbar to manually enter one"
+    elsif runs.any? && races.empty?
+      "Next up, create a Goal"
+    elsif runs.any?
+      "Assign your new runs to an active goal to move along your virtual route"
+    end
+  end
 end

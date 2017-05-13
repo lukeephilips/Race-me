@@ -17,6 +17,7 @@ function initMap() {
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById('directions'));
 }
+
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   directionsService.route({
     origin: '<%= @goal['start_location'] %>',
@@ -51,15 +52,14 @@ function createDistanceArray(response){
 }
 
 function setMarker(turnByTurnData){
-
   var usersProgressArray = <%= @users_races_hash.to_json.html_safe %>;
   var nearestPointsArray = usersProgressArray.map(setNearestPoint);
 
   nearestPointsArray.forEach(function mapify(nearestPoint) {
     var marker = new google.maps.Marker({
-      position: nearestPoint[0],
+      position: nearestPoint["point"],
       map: map,
-      label: nearestPoint[1][0]
+      label: nearestPoint["name"][0]
     });
   })
 }
@@ -75,6 +75,6 @@ function setNearestPoint(userProgress){
       return step.total_dist >= progressAtStep
     }).lat_lng;
   }
-  return [nearestPoint, userProgress['name']];
+  return {"point": nearestPoint, "name": userProgress['name']};
 };
 </script>
