@@ -75,14 +75,12 @@ class GoalsController < ApplicationController
 
   def destroy
     @goal = Goal.find(params[:id])
-
     if @goal.users.count > 1
       @goal.users.delete(current_user)
     else
       @goal.destroy
     end
 
-    @goal.destroy
     flash[:notice] = "You deleted #{@goal.name}"
     redirect_to user_goals_path(current_user)
   end
