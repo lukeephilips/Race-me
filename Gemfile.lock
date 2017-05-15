@@ -93,9 +93,6 @@ GEM
     ffi (1.9.17)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    gmaps-autocomplete-rails (0.3.1)
-      rails (>= 3.1.0)
-    gmaps4rails (2.1.2)
     hashdiff (0.3.2)
     httmultiparty (0.3.16)
       httparty (>= 0.7.3)
@@ -123,6 +120,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    markerclustererplus-rails (2.1.2.1)
     materialize-sass (0.98.0)
       sass (~> 3.3)
     method_source (0.8.2)
@@ -286,12 +284,11 @@ DEPENDENCIES
   devise
   dotenv-rails
   factory_girl_rails
-  gmaps-autocomplete-rails
-  gmaps4rails
   jbuilder (~> 2.5)
   jquery-rails
   launchy
   listen (~> 3.0.5)
+  markerclustererplus-rails
   materialize-sass
   paperclip
   pg (~> 0.18)

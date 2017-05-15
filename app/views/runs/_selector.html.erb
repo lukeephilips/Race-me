@@ -1,7 +1,12 @@
-<%= form_tag do |f| %>
+<%= form_for [@user, run] do |f| %>
+    <%= f.label "Select a goal to assign these miles" %>
+    <%= f.select(:goal_id, @user.goals.collect{|goal| [goal.name, goal.id]}) %>
+<% end %>
+
+<!-- <%= form_tag do |f| %>
     <%= label_tag "Select a goal to assign these miles" %>
     <%= select_tag "goal", options_for_select(@user.goals.collect{|goal| [goal.name, goal.id]}) %>
-<% end %>
+<% end %> -->
 
 <script type="text/javascript">
 $(document).ready(function(){

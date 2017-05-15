@@ -16,6 +16,7 @@
 //= require_tree .
 //= require materialize-sprockets
 //= require underscore
+//= require markerclusterer
 
 
 $(document).ready(function(){

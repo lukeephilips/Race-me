@@ -28,30 +28,37 @@ class GoalsController < ApplicationController
 
   def create
     # collect user input and make calls to GMaps geotagging
-    user_total_distance = Geocoder.get_distance(Geocoder.get_geo(goal_params[:start_location]), Geocoder.get_geo(goal_params[:end_location]))['rows'][0]['elements'][0]['distance']['value']
+    user_total_distance = Geocoder.get_distance(Geocoder.get_geo(goal_params[:start_location]), Geocoder.get_geo(goal_params[:end_location]))
+    byebug
+    if user_total_distance['rows'][0]['elements'][0].key?('distance')
+      user_total_distance = user_total_distance['rows'][0]['elements'][0]['distance']['value']
+      @goal = Goal.new({name: goal_params[:name],
+                        start_location: goal_params[:start_location],
+                        end_location: goal_params[:end_location],
+                        start_latlng: Geocoder.get_geo(goal_params[:start_location]),
+                        end_latlng: Geocoder.get_geo(goal_params[:end_location]),
+                        total_distance: user_total_distance})
+      @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
 
-    @goal = Goal.new({name: goal_params[:name],
-                      start_location: goal_params[:start_location],
-                      end_location: goal_params[:end_location],
-                      start_latlng: Geocoder.get_geo(goal_params[:start_location]),
-                      end_latlng: Geocoder.get_geo(goal_params[:end_location]),
-                      total_distance: user_total_distance})
-    @goals = Goal.all.collect{|goal| [goal.name, goal.id]}
+      if @goal.save
+        # create user_goal join
 
-    if @goal.save
-      # create user_goal join
+        current_user.races.create(goal_id: @goal.id, progress: 0)
+        @flash_message = "You saved #{@goal.name}"
 
-      current_user.races.create(goal_id: @goal.id, progress: 0)
-      @flash_message = "You saved #{@goal.name}"
+        if params[:opponents] != ''
+          invite_opponents(params[:opponents].split(", "))
+        end
 
-      if params[:opponents] != ''
-        invite_opponents(params[:opponents].split(", "))
+        flash[:notice] = @flash_message
+        redirect_to user_goal_path(current_user,@goal)
+      else
+        flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join
+        render :new
       end
-
-      flash[:notice] = @flash_message
-      redirect_to user_goal_path(current_user,@goal)
     else
-      flash[:alert] = @goal.errors.full_messages.each {|m| m.to_s}.join
+      flash[:alert] = "No running directions found."
+      @goal = Goal.new
       render :new
     end
   end

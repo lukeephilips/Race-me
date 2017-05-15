@@ -38,11 +38,10 @@ gem 'devise'
 gem 'materialize-sass'
 gem 'textacular'
 gem 'strava-api-v3'
-gem 'gmaps4rails'
-gem 'gmaps-autocomplete-rails'
 gem 'rest-client'
 gem 'underscore-rails'
 gem 'will_paginate'
+gem 'markerclustererplus-rails'
 
 
 group :development, :test do

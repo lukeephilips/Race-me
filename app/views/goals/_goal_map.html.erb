@@ -9,6 +9,9 @@
 
 
 <script>
+$(document).ready(function(){
+  initMap();
+});
 function initMap() {
   var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
@@ -58,13 +61,14 @@ function setMarker(turnByTurnData){
   var usersProgressArray = <%= @users_races_hash.to_json.html_safe %>;
   var nearestPointsArray = usersProgressArray.map(setNearestPoint);
 
-  nearestPointsArray.forEach(function mapify(nearestPoint) {
-    var marker = new google.maps.Marker({
+  var markers = nearestPointsArray.map(function(nearestPoint){
+    return new google.maps.Marker({
       position: nearestPoint["point"],
       map: map,
       label: nearestPoint["name"][0]
     });
-  })
+  });
+  var markerCluster = new MarkerClusterer(map, markers);
 }
 
 function setNearestPoint(userProgress){
