@@ -17,6 +17,7 @@
 //= require materialize-sprockets
 //= require underscore
 
+
 $(document).ready(function(){
   $(".button-collapse").sideNav();
 

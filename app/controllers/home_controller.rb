@@ -6,4 +6,8 @@ class HomeController < ApplicationController
     end
     flash[:notice] = current_user.walkthrough
   end
+
+  def update
+    byebug
+  end
 end

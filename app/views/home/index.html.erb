@@ -1,7 +1,12 @@
 <% if @runs %>
   <div class="row">
     <h3 class="center">Your new runs</h3>
-    <%= render 'runs/run_card.html.erb' %>
+    <%= form_tag "/home/update", method: "put" do %>
+      <%= render 'runs/selector' %>
+      <%= render 'runs/run_card.html.erb' %>
+
+
+    <% end %>
   </div>
   <div class="row">
     <%= will_paginate @runs %>

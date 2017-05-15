@@ -1,8 +1,11 @@
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_KEY']}&callback=initMap" %>
+
 <div class=" row map-container">
   <div class="col s8" id="map">
   </div>
   </div>
 </div>
+
 
 
 <script>
