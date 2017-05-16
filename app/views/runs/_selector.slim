@@ -1,0 +1,13 @@
+= form_for [@user, run] do |f|
+  = f.label "Select a goal to assign these miles"
+  = f.select(:goal_id, @user.goals.collect{|goal| [goal.name, goal.id]})
+
+javascript:
+  $(document).ready(function(){
+    $('select').material_select();
+  });
+    $(document).on("turbolinks:load", function(){
+      $('form').on("change", "select", function(){
+        $(this).parent().parent('form').submit();
+      });
+    });

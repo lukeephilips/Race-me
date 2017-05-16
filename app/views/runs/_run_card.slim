@@ -1,0 +1,42 @@
+- @runs.each do |run|
+  .col.l4.m6.s12
+    .card.grey.lighten-4
+      .card-content.center.black-text
+        span.card-title
+          | Distance:&nbsp
+          = convert_meters_to_miles(run.total_distance, 1)
+          |  miles
+          br
+        	br
+          | Date:&nbsp
+          = display_date(run.date)
+        hr
+        p
+          | Time:&nbsp
+          = convert_seconds(run.total_time, "minutes")
+          |  minutes
+        p
+          |Avg Speed:&nbsp
+          = (convert_seconds(run.total_time, "minutes")/convert_meters_to_miles(run.total_distance, 4)).round(2)
+          |  minutes per mile
+        p
+          | Travel Method:&nbsp
+          = run.travel_method
+        br
+        .run-goal
+          - if run.goal
+            p.strong
+              |Goal:&nbsp
+              = link_to run.goal.name, user_goal_path(@user, run.goal)
+            .progress
+              <div class="progress-bar" style="width: <%= width =calc_percent(@user, run.goal) %>" id="<%= progress_color(width) %>"></div>
+          - elsif run.user == current_user
+            = render 'runs/selector', run: run
+          - else
+            p Not yet assigned to a goal
+
+      .card-action.center
+        = link_to "view", user_run_path(current_user, run)
+        - if current_user && current_user == @user
+          = link_to "edit", edit_user_run_path(current_user, run)
+          = link_to "delete", user_run_path(current_user, run), :data => {confirm: 'Are you sure you want to delete this run?', method: 'delete'}

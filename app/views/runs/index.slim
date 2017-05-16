@@ -1,0 +1,9 @@
+h3.center
+  = @user.name
+  |'s
+  |  runs
+- if @user == current_user
+  = link_to 'Add a Run', new_user_run_path(current_user), class: 'btn right-align'
+.row
+  = render 'run_card'
+= will_paginate @runs
