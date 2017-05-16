@@ -1,0 +1,82 @@
+= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_KEY']}&callback=initMap&libraries=geometry"
+
+.row.map-container
+  .col.s8#map
+
+javascript:
+  $(document).ready(function(){
+    initMap();
+  });
+  function initMap() {
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 7
+    });
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('directions'));
+  }
+
+  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    directionsService.route({
+      origin: '#{ @goal['start_location'] }',
+      destination: '#{ @goal['end_location'] }',
+      travelMode: 'WALKING'
+
+    }, function(response, status) {
+      if (status === 'OK') {
+
+        directionsDisplay.setDirections(response);
+
+        turnByTurnData = createDistanceArray(response);
+        setMarker(turnByTurnData);
+
+      } else {
+           window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+
+  function createDistanceArray(response){
+    var turnByturnDistances = [];
+    var distanceFromOrigin = 0;
+    
+    response.routes[0].legs[0].steps.map(function(step){
+      distanceFromOrigin += step.distance.value;
+      turnByturnDistances.push({
+        "dist": step.distance.value,
+        "lat_lng": {lat: step.lat_lngs[0].lat(), lng: step.lat_lngs[0].lng()},
+        "total_dist": distanceFromOrigin});
+    })
+    return turnByturnDistances
+  }
+
+  function setMarker(turnByTurnData){
+    var usersProgressArray = #{ @users_races_hash.to_json.html_safe };
+    var nearestPointsArray = usersProgressArray.map(setNearestPoint);
+
+    var markers = nearestPointsArray.map(function(nearestPoint){
+      return new google.maps.Marker({
+        position: nearestPoint["point"],
+        map: map,
+        label: nearestPoint["name"][0]
+      });
+    });
+    var markerCluster = new MarkerClusterer(map, markers);
+  }
+
+  function setNearestPoint(userProgress){
+    if (userProgress['distance'] >= _.last(turnByTurnData)['total_dist']){
+      var nearestPoint = _.last(turnByTurnData)['lat_lng']
+    }
+    else {
+      var nearestPoint = turnByTurnData.find(function findPoint(step){
+        var progressAtStep = userProgress['distance'];
+
+        return step.total_dist >= progressAtStep
+      }).lat_lng;
+    }
+    return {"point": nearestPoint, "name": userProgress['name']};
+  };

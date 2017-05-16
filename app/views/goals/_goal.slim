@@ -1,0 +1,35 @@
+- @goals.order(:name).each do |goal|
+  .col.l4.m6.s12
+    .card.goal-card
+      .card-content
+        span.card-title.black-text
+          = goal.name
+        p
+          | Total Distance:
+          = convert_meters_to_miles(goal.total_distance, 1)
+          | miles
+        p
+          | Starting Location:
+          = goal.start_location
+        p
+          | Ending Location:
+          = goal.end_location
+        br
+        p
+          = link_to "View Details", user_goal_path(current_user.id, goal.id)
+          | &nbsp
+          | &nbsp
+          = link_to "Delete", user_goal_path(current_user.id, goal.id),:data => {:confirm => "Are you sure?", :method => "delete"}
+      .card-action
+        - goal.users.each do |user|
+          p
+            = link_to user.name, user_runs_path(user.id)
+            i.material-icons
+              | directions_run
+            | &nbsp
+            span.percent
+              | progress:
+              = calc_percent(user, goal)
+          .progress
+            <div class="progress-bar" style="width: #{width =calc_percent(user, goal)}" id="#{ progress_color(width) }">
+            </div>

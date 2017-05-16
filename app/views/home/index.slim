@@ -1,0 +1,8 @@
+- if @runs
+  .row
+    h3.center Your new runs
+    = render 'runs/run_card.html.erb'
+  .row
+    = will_paginate @runs
+- else
+  p You have no unassigned runs.

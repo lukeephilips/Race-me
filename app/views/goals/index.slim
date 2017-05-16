@@ -1,0 +1,23 @@
+h3.center
+  = @user.name
+  |'s goals
+.row
+  .col.m4.s12.right
+    h6
+      | Filter goals
+    = form_tag user_goals_path(current_user), method: 'get', remote: true do
+      = label_tag 'Search Term'
+      = text_field_tag :search_term
+      = submit_tag 'Search', class: "btn left"
+    = link_to "Show all", user_goals_path(current_user), method: 'get', remote: true, class: 'btn black', id: 'show-all'
+
+
+- if @user == current_user
+  .row
+    .col.m4.s12
+      =link_to "Add a Goal", new_user_goal_path(@user), class: "btn", data: { turbolinks: false }
+
+.row
+  .goals
+    = render 'goal'
+= will_paginate @goals
