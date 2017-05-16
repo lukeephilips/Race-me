@@ -29,7 +29,7 @@ class GoalsController < ApplicationController
   def create
     # collect user input and make calls to GMaps geotagging
     user_total_distance = Geocoder.get_distance(Geocoder.get_geo(goal_params[:start_location]), Geocoder.get_geo(goal_params[:end_location]))
-    byebug
+
     if user_total_distance['rows'][0]['elements'][0].key?('distance')
       user_total_distance = user_total_distance['rows'][0]['elements'][0]['distance']['value']
       @goal = Goal.new({name: goal_params[:name],

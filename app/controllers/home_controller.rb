@@ -2,12 +2,11 @@ class HomeController < ApplicationController
   def index
     @user = current_user
     if @user.runs.any?
-      @runs ||= @user.runs.where(goal_id: nil).paginate(:page => params[:page], :per_page => 6)
+      @runs ||= @user.runs.where(goal_id: nil).order(:date).reverse_order.paginate(:page => params[:page], :per_page => 6)
     end
-    flash[:notice] = current_user.walkthrough
-  end
-
-  def update
-    byebug
+    unless session[:walkthrough] == current_user.walkthrough
+      flash.now[:notice] = current_user.walkthrough
+      session[:walkthrough] = current_user.walkthrough
+    end
   end
 end

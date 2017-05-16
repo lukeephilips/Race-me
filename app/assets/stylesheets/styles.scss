@@ -20,7 +20,9 @@ a {
  label {
    @extend .black-text;
  }
-
+.percent{
+  font-size: 1.2em;
+}
 body {
   background-color: #2c3539;
   .brand-logo{
@@ -73,12 +75,12 @@ body {
   background-color: black;
   position: absolute;
   top: 65px;
-  right:  80px;
+  right:  0px;
   border: 2px solid $primary-color;
   z-index: 10;
   width: 600px;
   animation-name: slider;
-  animation-duration: .5s;
+  animation-duration: 2s;
   animation-timing-function: ease-in-out;
   padding: 10px;
   .x {

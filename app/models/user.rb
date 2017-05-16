@@ -44,13 +44,11 @@ class User < ApplicationRecord
   end
   def walkthrough
     if !token?
-      "Welcome! First things first, login to your strava account in the navbar"
+      "Welcome! Login to your strava account in the navbar"
     elsif runs.empty?
       "Looks like you don't have any new runs on strava. Go to Runs in the navbar to manually enter one"
     elsif runs.any? && goals.empty?
-      "Next up, create a Goal"
-    elsif runs.any?
-      "Assign your new runs to an active goal to move along your virtual route"
+      "Create a Goal and assign your runs"
     end
   end
 end

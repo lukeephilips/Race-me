@@ -36,6 +36,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'devise'
 gem 'materialize-sass'
+gem 'slim-rails'
 gem 'textacular'
 gem 'strava-api-v3'
 gem 'rest-client'
