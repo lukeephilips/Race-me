@@ -15,7 +15,6 @@ class RegistrationsController < Devise::RegistrationsController
     resource.save
     yield resource if block_given?
     if resource.persisted?
-      byebug
       if params[:goal_id].present?
         resource.goals.push(Goal.find(params[:goal_id]))
       end

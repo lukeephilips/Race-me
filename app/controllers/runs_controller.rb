@@ -19,7 +19,6 @@ class RunsController < ApplicationController
     @run = @user.runs.new(run_params)
 
     if @run.save
-      byebug
       current_race = Race.where(goal_id: @run.goal_id, user_id: @user.id ).first
       new_progress = current_race.progress.to_i + @run.total_distance.to_i
       current_race.update({progress: new_progress})
