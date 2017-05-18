@@ -64,7 +64,7 @@ Rails.application.configure do
   :authentication => :plain,
   :port => ENV['MAILGUN_SMTP_PORT'],
   :address => ENV['MAILGUN_SMTP_SERVER'],
-  :username => ENV['MAILGUN_SMTP_LOGIN'],
+  :user_name => ENV['MAILGUN_SMTP_LOGIN'],
   :password => ENV['MAILGUN_SMTP_PASSWORD'],
   :domain => "race-me.heroku.com",
 

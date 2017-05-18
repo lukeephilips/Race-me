@@ -7,7 +7,6 @@ class User < ApplicationRecord
   has_many :goals, :through => :races
   has_many :races
   validates_presence_of :name
-  validates_uniqueness_of :name
 
   def after_database_authentication
     check_for_token_and_runs
