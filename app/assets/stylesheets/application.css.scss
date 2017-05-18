@@ -14,7 +14,7 @@
  *= require_self
  */
  @import "materialize/components/color";
- $primary-color: color("blue-grey", "base") !default;
+ $primary-color: color("light-blue", "darken-3") !default;
  $secondary-color: color("light-green", "darken-1") !default;
  @import 'materialize';
  @import './mixins';

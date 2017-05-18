@@ -9,7 +9,7 @@ h3.center
       = label_tag 'Search Term'
       = text_field_tag :search_term
       = submit_tag 'Search', class: "btn left"
-    = link_to "Show all", user_goals_path(current_user), method: 'get', remote: true, class: 'btn black', id: 'show-all'
+    = link_to "Show all", user_goals_path(current_user), method: 'get', remote: true, class: 'btn blue-grey darken-4', id: 'show-all'
 
 
 - if @user == current_user

@@ -1,12 +1,20 @@
 = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_KEY']}&callback=initMap&libraries=geometry"
 
-.row.map-container
-  .col.s8#map
+
+.preloader.valign-wrapper
+  .row
+    .col.s3.offset-s3 = render "preloader"
+.thing
+  .row.map-container
+    .col.s8#map
 
 javascript:
   $(document).ready(function(){
+    $(".preloader").show();
+
     initMap();
   });
+
   function initMap() {
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
@@ -42,7 +50,7 @@ javascript:
   function createDistanceArray(response){
     var turnByturnDistances = [];
     var distanceFromOrigin = 0;
-    
+
     response.routes[0].legs[0].steps.map(function(step){
       distanceFromOrigin += step.distance.value;
       turnByturnDistances.push({
@@ -64,7 +72,10 @@ javascript:
         label: nearestPoint["name"][0]
       });
     });
+
     var markerCluster = new MarkerClusterer(map, markers);
+    $(".preloader").hide()
+
   }
 
   function setNearestPoint(userProgress){

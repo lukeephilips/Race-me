@@ -1,21 +1,20 @@
 = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_KEY']}&libraries=places"
 
-.col.s4
-  .card.grey.lighten-4
-    .card-content.black-text
-      = form_for [current_user, @goal] do |f|
-        = f.label :name
-        = f.text_field :name
+.card.grey.lighten-4
+  .card-content.black-text
+    = form_for [current_user, @goal] do |f|
+      = f.label :name
+      = f.text_field :name
 
-        = f.label "Enter a start location for Google maps (ex: Steel Bridge, Portland)"
-        = f.text_field :start_location, required: true
-        = f.label "Enter an end location for Google maps (ex: Ross Island Bridge, Portland)"
-        = f.text_field :end_location, required: true
+      = f.label "Enter a start location for Google maps (ex: Steel Bridge, Portland)"
+      = f.text_field :start_location, required: true
+      = f.label "Enter an end location for Google maps (ex: Ross Island Bridge, Portland)"
+      = f.text_field :end_location, required: true
 
-        = label_tag "Invite opponents by email (separate opponents with commas)"
-        = text_field_tag :opponents
+      = label_tag "Invite opponents by email (separate opponents with commas)"
+      = text_field_tag :opponents
 
-        = f.submit class: 'btn'
+      = f.submit class: 'btn'
 
 javascript:
   function initialize_start() {

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class=" card col s6">
+  <div class="card col s6 offset-s2">
 
     <h2>Sign up</h2>
 
@@ -31,10 +31,14 @@
       </div>
 
       <div class="actions">
-        <%= f.submit "Sign up", class: 'btn' %>
+        <div class="col s6">
+          <%= f.submit "Sign up", class: 'btn bottom-margin' %>
+        </div>
+        <div class="col s6 right-align">
+          <%= render "devise/shared/links" %>
+        </div>
       </div>
     <% end %>
-
-    <%= render "devise/shared/links" %>
+    <br>
   </div>
 </div>

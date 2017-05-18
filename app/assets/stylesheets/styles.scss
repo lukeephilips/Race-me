@@ -1,7 +1,7 @@
 @import "materialize/components/color";
 @import './mixins';
 
-$primary-color: color("blue-grey", "base");
+$primary-color: color("light-blue", "darken-3");
 $secondary-color: color("light-green", "darken-1");
 a {
   @extend .pink-text, .text-darken-4;
@@ -149,6 +149,23 @@ body {
 	width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
+}
+.bottom-margin{
+  margin-bottom: 10px;
+}
+.dropdown-content li span{
+  color: $primary-color !important;
+}
+.map-wrapper{
+  z-index: 1;
+}
+.preloader{
+  position: absolute;
+  z-index: 2;
+  height: 80%;
+  background-color: white;
+  width: 66%;
+  left: 33%;
 }
 
 #show-all {
