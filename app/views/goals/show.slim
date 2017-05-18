@@ -8,10 +8,10 @@
             | Total Distance:&nbsp
             = convert_meters_to_miles(@goal.total_distance, 1)
             | miles
-          p
+          p.ellipsis
             | Starting Location:&nbsp
             = @goal.start_location
-          p
+          p.ellipsis
             | Ending Location:&nbsp
             = @goal.end_location
           br

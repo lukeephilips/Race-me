@@ -10,6 +10,11 @@ a {
     @extend .pink-text, .text-accent-4;
   }
 }
+a {
+  color: #ffab00;
+  text-transform: uppercase;
+}
+
  nav a, .btn {
    @extend .white-text;
    &:hover{
@@ -20,12 +25,6 @@ a {
  label {
    @extend .black-text;
  }
-.percent{
-  font-size: 1.2em;
-}
-.strong {
-  font-weight: bold;
-}
 body {
   background-color: #2c3539;
   .brand-logo{
@@ -103,14 +102,6 @@ body {
   margin-right: 5%;
 }
 
-a {
-  color: #ffab00;
-  text-transform: uppercase;
-}
-
-#show-all {
-  margin-left: 10px;
-}
 .progress {
  height: 25px;
  width: 100%;
@@ -145,6 +136,23 @@ a {
    border-radius: 4px;
    @include linear-gradient(top, rgba(white, .3), rgba(white, .05));
  }
+}
+
+.percent{
+  font-size: 1.2em;
+}
+.strong {
+  font-weight: bold;
+}
+.ellipsis{
+  text-overflow: ellipsis;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#show-all {
+  margin-left: 10px;
 }
 
 #very-low{ background-color: #f63a0f; }

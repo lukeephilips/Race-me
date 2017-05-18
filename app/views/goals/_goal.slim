@@ -5,14 +5,14 @@
         span.card-title.black-text
           = goal.name
         p
-          | Total Distance:
+          | Total Distance:&nbsp
           = convert_meters_to_miles(goal.total_distance, 1)
           | miles
-        p
-          | Starting Location:
+        p.ellipsis
+          | Starting Location:&nbsp
           = goal.start_location
-        p
-          | Ending Location:
+        p.ellipsis
+          | Ending Location:&nbsp
           = goal.end_location
         br
         p

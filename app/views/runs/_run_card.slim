@@ -36,7 +36,6 @@
             p Not yet assigned to a goal
 
       .card-action.center
-        = link_to "view", user_run_path(current_user, run)
         - if current_user && current_user == @user
           = link_to "edit", edit_user_run_path(current_user, run)
           = link_to "delete", user_run_path(current_user, run), :data => {confirm: 'Are you sure you want to delete this run?', method: 'delete'}

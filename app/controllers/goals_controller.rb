@@ -1,8 +1,7 @@
 class GoalsController < ApplicationController
   def index
-    @user = User.includes(:runs, :races, :goals).find(params[:user_id])
+    @user = current_user
     if params[:search_term]
-
       @goals = @user.goals.basic_search(params[:search_term]).includes(:runs, :races, :users)
     else
       @goals = @user.goals.all.paginate(:page => params[:page], :per_page => 6).includes(:runs, :races, :users)
