@@ -7,5 +7,4 @@ Rails.application.routes.draw do
     resources :goals
   end
   get '/token_exchange', to: 'application#token_exchange'
-  # get '/auth/:provider/callback', to: 'application#create'
 end
