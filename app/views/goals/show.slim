@@ -3,7 +3,7 @@
     .card-content
       span.card-title = @goal.name
       .row
-        .col.s4
+        .col.m4
           p
             | Total Distance:&nbsp
             = convert_meters_to_miles(@goal.total_distance, 1)
@@ -29,5 +29,5 @@
               .progress
                 <div class="progress-bar" style="width: #{ width =calc_percent(user, @goal) }" id="#{ progress_color(width) }"></div>
 
-        .col.s8.right
+        .col.m8.right
           = render 'goal_map'
