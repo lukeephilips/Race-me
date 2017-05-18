@@ -106,14 +106,13 @@ class GoalsController < ApplicationController
 
       if User.exists?(email: stripped_opponent)
         invited_user = User.find_by(email: stripped_opponent)
-      else
-        invited_user = User.new(email: stripped_opponent)
-        invited_user.save(validate: false)
-      end
-
         invited_user.races.create(user_id: invited_user.id, goal_id: @goal.id, progress: 0)
         Mailer.race_invite(current_user, invited_user, @goal).deliver
-        @flash_message += "\n"+"and invited " + invited_user.email
+      else
+        invited_user = User.new(email: stripped_opponent)
+        Mailer.new_user_invite(current_user, invited_user, @goal).deliver
+      end
+      @flash_message += "\n"+"and invited " + invited_user.email
     end
   end
 end

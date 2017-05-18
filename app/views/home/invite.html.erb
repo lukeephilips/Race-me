@@ -7,11 +7,7 @@
       <%= devise_error_messages! %>
 
       <div class="hidden-field">
-        <% if params[:goal_id] %>
-          <%= hidden_field_tag :goal_id, params[:goal_id] %>
-        <% else %>
-          <%= hidden_field_tag :goal_id %>
-        <% end  %>
+        <%= hidden_field_tag :goal %>
 
       </div>
       <div class="field">

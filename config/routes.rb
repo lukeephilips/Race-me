@@ -7,4 +7,8 @@ Rails.application.routes.draw do
     resources :goals
   end
   get '/token_exchange', to: 'application#token_exchange'
+
+  devise_scope :user do
+   get '/sign_up/:goal_id', to: 'registrations#new', as: :new_invite
+  end
 end

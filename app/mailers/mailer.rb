@@ -12,4 +12,12 @@ class Mailer < ApplicationMailer
 
     mail to: @recipient.email
   end
+  
+  def new_user_invite(sender, recipient, goal)
+    @sender = sender
+    @recipient = recipient
+    @goal = goal
+
+    mail to: @recipient.email
+  end
 end
