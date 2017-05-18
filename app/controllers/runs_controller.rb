@@ -19,17 +19,11 @@ class RunsController < ApplicationController
     @run = @user.runs.new(run_params)
 
     if @run.save
-      # set user_goal join
-      @race = @user.races.new(goal_id: @run.goal_id, progress: @run.total_distance.to_i)
-      if @race.save
-        flash[:notice] = "You're on your way to a new goal"
-      else
-        # if join already exists update it with new progress,
-        current_race = Race.where(goal_id: @run.goal_id, user_id: @user.id ).first
-        new_progress = current_race.progress.to_i + @run.total_distance.to_i
-        current_race.update({progress: new_progress})
-        flash[:notice] = "You're that much closer to your goal"
-      end
+      byebug
+      current_race = Race.where(goal_id: @run.goal_id, user_id: @user.id ).first
+      new_progress = current_race.progress.to_i + @run.total_distance.to_i
+      current_race.update({progress: new_progress})
+      flash[:notice] = "You're that much closer to #{@run.goal.name}"
       redirect_to user_runs_path(current_user)
     else
       flash[:alert] = @run.errors.full_messages.each {|m| m.to_s}.join

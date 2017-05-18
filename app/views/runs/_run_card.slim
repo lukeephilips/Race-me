@@ -28,8 +28,9 @@
             p.strong
               |Goal:&nbsp
               = link_to run.goal.name, user_goal_path(@user, run.goal)
-            .progress
-              <div class="progress-bar" style="width: <%= width =calc_percent(@user, run.goal) %>" id="<%= progress_color(width) %>"></div>
+              .progress
+                <div class="progress-bar" style="width: #{width =calc_percent(@user, run.goal)}" id="#{ progress_color(width) }">
+                </div>
           - elsif run.user == current_user
             = render 'runs/selector', run: run
           - else

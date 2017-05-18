@@ -15,7 +15,8 @@ class RegistrationsController < Devise::RegistrationsController
     resource.save
     yield resource if block_given?
     if resource.persisted?
-      if params[:goal_id]
+      byebug
+      if params[:goal_id].present?
         resource.goals.push(Goal.find(params[:goal_id]))
       end
       if resource.active_for_authentication?
