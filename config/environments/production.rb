@@ -57,6 +57,19 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "race-me-rails_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
+  # Mailgun settings
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  :authentication => :plain,
+  :port => ENV['MAILGUN_SMTP_PORT'],
+  :address => ENV['MAILGUN_SMTP_SERVER'],
+  :username => ENV['MAILGUN_SMTP_LOGIN'],
+  :password => ENV['MAILGUN_SMTP_PASSWORD'],
+  :domain => "race-me.heroku.com",
+
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -84,13 +97,3 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
-
-ActionMailer::Base.smtpsettings = {
-  :port => ENV['MAILGUNSMTPPORT'],
-  :address => ENV['MAILGUNSMTPSERVER'],
-  :username => ENV['MAILGUNSMTPLOGIN'],
-  :password => ENV['MAILGUNSMTPPASSWORD'],
-  :domain => 'yourapp.heroku.com',
-  :authentication => :plain,
-}
-ActionMailer::Base.delivery_method = :smtp
