@@ -61,16 +61,6 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-ActionMailer::Base.smtpsettings = {
-  :port => ENV['MAILGUNSMTPPORT'],
-  :address => ENV['MAILGUNSMTPSERVER'],
-  :username => ENV['MAILGUNSMTPLOGIN'],
-  :password => ENV['MAILGUNSMTPPASSWORD'],
-  :domain => 'yourapp.heroku.com',
-  :authentication => :plain,
-}
-ActionMailer::Base.delivery_method = :smtp
-
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
@@ -94,3 +84,13 @@ ActionMailer::Base.delivery_method = :smtp
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
+
+ActionMailer::Base.smtpsettings = {
+  :port => ENV['MAILGUNSMTPPORT'],
+  :address => ENV['MAILGUNSMTPSERVER'],
+  :username => ENV['MAILGUNSMTPLOGIN'],
+  :password => ENV['MAILGUNSMTPPASSWORD'],
+  :domain => 'yourapp.heroku.com',
+  :authentication => :plain,
+}
+ActionMailer::Base.delivery_method = :smtp
