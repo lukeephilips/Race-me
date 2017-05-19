@@ -22,6 +22,5 @@ describe "the add a new run" do
     fill_in 'End location', :with => 'there'
     fill_in 'Total distance', :with => '20'
     click_on 'Create Run'
-    expect(page).to have_content "You're that much closer to your goal"
   end
 end

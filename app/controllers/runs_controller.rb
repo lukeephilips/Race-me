@@ -22,7 +22,6 @@ class RunsController < ApplicationController
       current_race = Race.where(goal_id: @run.goal_id, user_id: @user.id ).first
       new_progress = current_race.progress.to_i + @run.total_distance.to_i
       current_race.update({progress: new_progress})
-      flash[:notice] = "You're that much closer to #{@run.goal.name}"
       redirect_to user_runs_path(current_user)
     else
       flash[:alert] = @run.errors.full_messages.each {|m| m.to_s}.join
@@ -46,7 +45,6 @@ class RunsController < ApplicationController
         current_race = Race.where(goal_id: @run.goal_id, user_id: @user.id ).first
         new_progress = current_race.progress.to_i + @run.total_distance.to_i
         current_race.update({progress: new_progress})
-        flash[:notice] = "You're that much closer to #{@run.goal.name}"
       end
 
       redirect_to user_goal_path(current_user, @run.goal)

@@ -18,11 +18,12 @@
 //= require underscore
 //= require markerclusterer
 
+$(document).on('turbolinks:load', ready);
+$(document).ready(ready);
 
-$(document).ready(function(){
+function ready(){
   $(".button-collapse").sideNav();
-
   $('.alert').click(function() {
     $('.alert').hide();
   });
-})
+}

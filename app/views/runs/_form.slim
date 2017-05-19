@@ -1,0 +1,25 @@
+.card.grey.lighten-4
+  .card-content.black-text
+    = form_for [@user, @run] do |f|
+      = f.label "total distance in METERS"
+      = f.text_field :total_distance
+
+
+      = f.label "total time in seconds"
+      = f.text_field :total_time
+
+      = f.label :date
+      = f.date_field :date
+
+      = f.label :travel_method
+      = f.text_field :travel_method
+
+
+      = f.label :goal_id
+      = f.select :goal_id, @user.goals.collect{|goal| [goal.name, goal.id]}, id: 'run-select'
+      = f.submit class: 'btn'
+
+javascript:
+  $(document).ready(function(){
+    $('select').material_select();
+  });

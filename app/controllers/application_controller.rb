@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
       token: access_token})
 
     current_user.check_for_token_and_runs
+    flash[:notice] = "Nice work! Create a goal and assign your runs"
     redirect_to root_path
   end
 end
