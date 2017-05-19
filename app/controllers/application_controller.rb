@@ -11,15 +11,8 @@ class ApplicationController < ActionController::Base
     access_information =  Strava::Api::V3::Auth.retrieve_access(ENV['CLIENT_ID'], ENV['CLIENT_SECRET'], code)
     access_token = access_information['access_token']
 
-    if access_information['athlete']['profile_medium'].present?
-      profile_picture = access_information['athlete']['profile_medium']
-    else
-      profile_picture = nil
-    end
-
     current_user.update({
-      token: access_token,
-      profile_picture: profile_picture})
+      token: access_token})
 
     current_user.check_for_token_and_runs
 

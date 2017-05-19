@@ -6,6 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
       build_resource({})
       yield resource if block_given?
       respond_with resource
+      flash[:notice] = ""
     end
 
     def create
