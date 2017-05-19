@@ -1,5 +1,12 @@
+<style>
+  body {
+    background: url("<%= asset_path 'dolomites.jpg' %>") no-repeat center center;
+    background-size: cover;
+  }
+</style>
+
 <div class="row">
-  <div class="card col s12 l6 offset-l3">
+  <div class="card col s12 l6 offset-l6">
     <h2>Sign in</h2>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
