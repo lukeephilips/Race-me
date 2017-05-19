@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
       token: access_token})
 
     current_user.check_for_token_and_runs
-
     redirect_to root_path
   end
 end
