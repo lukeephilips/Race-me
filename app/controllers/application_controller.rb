@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:token_exchange]
 
   def current_user
     @current_user ||= super && User.includes(:goals, :runs, :races).find(@current_user.id)
