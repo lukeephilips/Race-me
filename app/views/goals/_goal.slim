@@ -7,7 +7,7 @@
         p
           | Total Distance:&nbsp
           = convert_meters_to_miles(goal.total_distance, 1)
-          | miles
+          |  miles
         p.ellipsis
           | Starting Location:&nbsp
           = goal.start_location
@@ -28,7 +28,7 @@
               | directions_run
             | &nbsp
             span.percent
-              | progress:
+              | progress:&nbsp
               = calc_percent(user, goal)
           .progress
             <div class="progress-bar" style="width: #{width =calc_percent(user, goal)}" id="#{ progress_color(width) }">
