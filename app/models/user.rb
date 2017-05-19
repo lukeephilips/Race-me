@@ -16,7 +16,7 @@ class User < ApplicationRecord
     if token
       @client = Strava::Api::V3::Client.new(:access_token => token)
       @athlete ||= @client.retrieve_current_athlete
-      @activities ||= @client.list_athlete_activities.first(20)
+      @activities ||= @client.list_athlete_activities.first(50)
     end
 
     if token && runs.empty?
