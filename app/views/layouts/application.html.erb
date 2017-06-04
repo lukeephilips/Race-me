@@ -15,11 +15,11 @@
           <%= link_to image_tag("icon.jpg", class: 'brand-logo'), root_path %>
           <ul id="nav-mobile" class="hide-on-med-and-down right">
             <% if current_user %>
-              <% if current_user.token %>
+              <!-- <% if current_user.token %>
               <li class="auth-status">Synced with Strava</li>
               <% else %>
               <li><%= link_to 'Sign into Strava', user_strava_omniauth_authorize_path %></li>
-              <% end %>
+              <% end %> -->
             <li><%= link_to 'Runs', user_runs_path(current_user) %></li>
             <li><%= link_to 'Goals', user_goals_path(current_user.id) %></li>
             <li><%= link_to "Log out #{current_user.name}", destroy_user_session_path, method: 'delete' %></li>

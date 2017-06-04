@@ -10,12 +10,12 @@ class User < ApplicationRecord
   validates_presence_of :name
 
   def self.from_omniauth(auth_hash)
-    user = find_or_create_by(id: auth_hash['uid'])
-    user.name = auth_hash['info']['name']
-    user.email = auth_hash['info']['email']
-    user.password = Devise.friendly_token[0,20]
-    user.save!
-    user
+    where(id: auth_hash.uid).first_or_create do |user|
+      user.name = auth_hash['info']['name']
+      user.email = auth_hash['info']['email']
+      user.password = Devise.friendly_token[0,20]
+      user.token = auth_hash['credentials']['token']
+    end
   end
 
   def self.new_with_session(params, session)
