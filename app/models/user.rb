@@ -2,11 +2,29 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:strava]
   has_many :runs
   has_many :goals, :through => :races
   has_many :races
   validates_presence_of :name
+
+  def self.from_omniauth(auth_hash)
+    user = find_or_create_by(id: auth_hash['uid'])
+    user.name = auth_hash['info']['name']
+    user.email = auth_hash['info']['email']
+    user.password = Devise.friendly_token[0,20]
+    user.save!
+    user
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.strava_data"] && session["devise.strava_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
 
   def after_database_authentication
     check_for_token_and_runs
