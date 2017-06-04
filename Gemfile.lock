@@ -317,8 +317,6 @@ DEPENDENCIES
   listen (~> 3.0.5)
   markerclustererplus-rails
   materialize-sass
-  omniauth
-  omniauth-oauth2
   omniauth-strava
   paperclip
   pg (~> 0.18)
