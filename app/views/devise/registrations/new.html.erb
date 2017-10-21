@@ -4,36 +4,51 @@
     background-size: cover;
   }
 </style>
+<!-- <div class="row">
+  <h3>RaceMe</h3>
+  <h5>Challenge your friends to virtual races around the world or set individual fitness goals.</h5>
+</div>
 <div class="row">
-  <div class="card col s12 l6 offset-l6">
-
-    <!-- <h2>Sign Up</h2> -->
-      <%- if devise_mapping.omniauthable? %>
-        <%- resource_class.omniauth_providers.each do |provider| %>
-          <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
-        <% end -%>
-      <% end -%>
-    <!-- <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <div class="col s4">
+    <h5>Use your Strava account and Google Maps to plot your real world progress along your virtual route</h5>
+    <i class="material-icons">map</i>
+  </div>
+  <div class="col s4">
+    <h5>See real time progress on the leaderboard as you and your challengers complete new runs</h5>
+    <i class="material-icons">language</i>
+  </div>
+  <div class="col s4">
+    <h5>Show who's boss by sending email updates when you take the lead</h5>
+    <i class="material-icons">language</i>
+  </div>
+</div> -->
+<div class="row">
+  <%- if devise_mapping.omniauthable? %>
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
+    <% end -%>
+  <% end -%>
+</div>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <div class="row">
+    <h5>Create an account</h5>
+    <div class="col s4 sign-up white">
       <%= devise_error_messages! %>
-
       <div class="hidden-field">
         <% if params[:goal_id] %>
           <%= hidden_field_tag :goal_id, params[:goal_id] %>
         <% else %>
           <%= hidden_field_tag :goal_id %>
         <% end  %>
-
       </div>
       <div class="field">
         <%= f.label :name %><br />
         <%= f.text_field :name, autofocus: true %>
       </div>
-
       <div class="field">
         <%= f.label :email %><br />
         <%= f.email_field :email %>
       </div>
-
       <div class="field">
         <%= f.label :password %>
         <% if @minimum_password_length %>
@@ -41,21 +56,18 @@
         <% end %><br />
         <%= f.password_field :password, autocomplete: "off" %>
       </div>
-
       <div class="field">
         <%= f.label :password_confirmation %><br />
         <%= f.password_field :password_confirmation, autocomplete: "off" %>
       </div>
-
-      <div class="actions">
-        <div class="col s6">
-          <%= f.submit "Sign up", class: 'btn bottom-margin' %>
-        </div>
-        <div class="col s6 right-align">
-          <%= render "devise/shared/links" %>
-        </div>
-      </div>
-    <% end %> -->
-    <br>
+    </div>
   </div>
-</div>
+  <div class="row actions">
+    <div class="col s6">
+      <%= f.submit "Sign up", class: 'btn bottom-margin' %>
+    </div>
+    <div class="col s6 right-align">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+<% end %>

@@ -7,7 +7,11 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+
+Capybara.register_driver :poltergeist_long do |app|
+  Capybara::Poltergeist::Driver.new(app, timeout: 30)
+end
+Capybara.javascript_driver = :poltergeist_long
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

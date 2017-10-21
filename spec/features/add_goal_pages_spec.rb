@@ -1,21 +1,22 @@
 require 'rails_helper'
 
-describe "the add a new run" do
-  it "views current runs", js: true do
-    user = FactoryGirl.create(:user)
-    goal = FactoryGirl.create(:goal)
+describe "the add a new goal" do
+  before do
+    @user = FactoryGirl.create(:user)
+  end
+  it "views current goals", js: true do
     visit '/'
-    click_on 'Log In'
+    click_on 'Sign In'
     fill_in 'Email', :with => 'test@test.com'
     fill_in 'Password', :with => 'password'
-    click_button 'Log in'
-    click_on 'View Runs'
-    click_on 'Add a Run'
-    click_link 'Add a Goal'
-    fill_in 'Name', :with => 'A new goal'
+    click_button 'Sign in'
+    click_on 'Goals'
+    click_on 'Add a Goal'
+    fill_in 'goal[name]', :with => 'oregon thing'
+    fill_in 'goal[start_location]', :with => 'Portland, or'
+    fill_in 'goal[end_location]', :with => 'Eugene, or'
+    click_on 'Create Goal'
 
-    find_button('Create Goal').click
-    expect(Goal.find_by(name: "A new goal"))
-    # expect(page).to_not have_content "buddy"
+    expect(page).to have_content "You saved oregon thing"
   end
 end

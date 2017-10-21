@@ -3,6 +3,9 @@
 
 $primary-color: color("light-blue", "darken-3");
 $secondary-color: color("light-green", "darken-1");
+.splash {
+  size: cover;
+}
 a {
   @extend .pink-text, .text-darken-4;
   &:hover{

@@ -1,24 +1,31 @@
-# README
+# _RaceMe_
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### By _**Luke Philips**_
 
-Things you may want to cover:
+#### _Race me from here to China! Progress along virtual routes using your real-world run distances.
+Create virtual races on Google Maps, then plot your progress along the virtual route using your real-world run distances recorded on your smartphone or GPS watch. Made with Ruby on Rails, Slim, Sass, UnderscoreJS, Strava API, Google Maps API, authentication with Devise and OAuth 2.0._
 
-* Ruby version
+## Setup/Installation Requirements
 
-* System dependencies
+_View at: [racemeapp.com/](racemeapp.com/)_
 
-* Configuration
+_For developers, from the command line run:_
+```
+git clone https://github.com/lukeephilips/Race-me
+bundle install
+rails db:create
+rails db:migrate
 
-* Database creation
+Put into the .env:_
+  1. Get a Google Maps API Key.
+  2. Get a Strava API Key.
 
-* Database initialization
+## Technologies Used
 
-* How to run the test suite
+_Ruby on Rails, postgreSQL, Devise, OmniAuth, Google Maps API, Strava API, MailGun, SASS, Slim_
 
-* Services (job queues, cache servers, search engines, etc.)
+### License
 
-* Deployment instructions
+*MIT*
 
-* ...
+Copyright (c) 2016 **_Luke Philips_**
