@@ -7,6 +7,7 @@ describe "the add a new goal" do
   it "views current goals", js: true do
     visit '/'
     click_on 'Sign In'
+    sleep(1)
     fill_in 'Email', :with => 'test@test.com'
     fill_in 'Password', :with => 'password'
     click_button 'Sign in'

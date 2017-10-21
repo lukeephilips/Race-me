@@ -9,7 +9,7 @@ require 'capybara/rails'
 require 'capybara/poltergeist'
 
 Capybara.register_driver :poltergeist_long do |app|
-  Capybara::Poltergeist::Driver.new(app, timeout: 30)
+  Capybara::Poltergeist::Driver.new(app, {timeout: 30, js_errors: false})
 end
 Capybara.javascript_driver = :poltergeist_long
 
